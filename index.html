@@ -95,22 +95,28 @@
 
         <!-- カード1 -->
         <div class="relative max-w-xl mx-auto rounded-lg overflow-hidden shadow-lg">
-          <img src="imgs/test.webp" alt="教室風景" class="w-full h-auto object-cover">
+          <img src="imgs/class/class_1.png" alt="教室風景" class="w-full h-auto object-cover">
 
           <div class="absolute bottom-0 w-full bg-gradient-to-t from-black/70 to-transparent p-4">
             <p class="text-white text-lg font-semibold drop-shadow">
-              普段の教室の様子（個人情報保護の観点上、画像は加工しています）
+              普段の教室の様子
+              <span class="text-xs font-normal">
+                （個人情報保護の観点上、画像は加工しています）
+              </span>
             </p>
           </div>
         </div>
 
         <!-- カード2 -->
         <div class="relative max-w-xl mx-auto rounded-lg overflow-hidden shadow-lg">
-          <img src="imgs/test.webp" alt="学生の活動" class="w-full h-auto object-cover">
+          <img src="imgs/class/class_2.png" alt="学生の活動" class="w-full h-auto object-cover">
 
           <div class="absolute bottom-0 w-full bg-gradient-to-t from-black/70 to-transparent p-4">
             <p class="text-white text-lg font-semibold drop-shadow">
-              サイトを作っている学生（個人情報保護の観点上、画像は加工しています）
+              普段の教室の様子
+              <span class="text-xs font-normal">
+                （個人情報保護の観点上、画像は加工しています）
+              </span>
             </p>
           </div>
         </div>
@@ -122,51 +128,129 @@
     </div>
   </section>
 
-  <!-- 🟦 共感セクション -->
-  <section class="py-16 px-6 bg-white">
-    <div class="max-w-3xl mx-auto">
-      <h2 class="text-3xl font-bold mb-6 text-center">
-        変化の激しい時代に、
-        “今、何を学ぶか”で未来は変わる。
-      </h2>
-      <p class="mb-6 leading-relaxed">
-        AI、データ、情報活用力… 子どもたちの未来に欠かせない力が、
-        今求められています。学校の授業だけでは学べない実践的なスキルを、
-        楽しみながら身につけることが大切です。
-      </p>
-      <p class="mb-6 leading-relaxed">
-        最初は「なんとなく面白そう」で始めた子が、
-        気づけば自分でPythonのコードを書いて、作品を完成させている。
+  <!-- 🟦 共感セクション（置き換え推奨） -->
+  <section id="empathy" class="py-20 px-6 bg-white">
+    <div class="max-w-5xl mx-auto space-y-12">
+      <!-- 見出し + リード -->
+      <header class="text-center space-y-4">
+        <h2 class="text-3xl md:text-4xl font-bold">
+          変化の激しい時代に、<br class="md:hidden" />“今、何を学ぶか”で未来は変わる。
+        </h2>
+        <p class="text-lg text-base-content/80 leading-relaxed">
+          AI・データ・情報活用力。学校だけでは触れにくい“実践”を、楽しく、やさしく、続けられる形で。
+        </p>
+      </header>
 
-        そんな姿が、教室では日常です。
-        興味のあることに取り組むからこそ、こどもたちは自分から学びたくなる。
-        そしてその過程で、確かなスキルと自信を手に入れていきます。
-      </p>
-      <!-- <ul class="list-disc list-inside mb-6">
-        <li>「何を学ばせればいいか分からない」</li>
-        <li>「勉強が苦手でもついていける？」</li>
-        <li>「将来の選択肢を広げてあげたい」</li>
-        <li>「子どもの自信や得意分野を見つけたい」</li>
-      </ul>
-      <p class="leading-relaxed mb-6">
-        これからの時代に求められる、<strong>問題解決力・コミュニケーション力・実践力</strong>を、Pythonで楽しく伸ばしていきます。しかも、高校「情報I」や大学入試対策にも直結し、進学・キャリア形成にも役立ちます。
-      </p>
-      <div class="grid md:grid-cols-3 gap-6">
-        <div class="card bg-base-200 p-6 shadow-md">
-          <h3 class="font-bold mb-2">💻 ITスキル</h3>
-          <p>これからの社会で必須となるデジタルスキルを無理なく習得。</p>
+      <!-- 共感（悩み）カード -->
+      <div class="space-y-4">
+        <h3 class="text-xl font-semibold text-center">こんな悩み、ありませんか？</h3>
+        <div class="grid gap-4 md:grid-cols-3">
+          <div class="card bg-base-200 shadow-sm">
+            <div class="card-body">
+              <div class="flex items-start gap-3">
+                <!-- icon -->
+                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 shrink-0" fill="none" viewBox="0 0 24 24"
+                  stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 18h.01M12 14a4 4 0 10-4-4h.01M12 14v2" />
+                </svg>
+                <div>
+                  <h4 class="font-bold mb-1">何から始めればいい？</h4>
+                  <p class="text-sm opacity-80">環境づくり・教材選びでつまずきがち…</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card bg-base-200 shadow-sm">
+            <div class="card-body">
+              <div class="flex items-start gap-3">
+                <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 18h.01M12 14a4 4 0 10-4-4h.01M12 14v2" />
+                </svg>
+                <div>
+                  <h4 class="font-bold mb-1">続かない・難しく感じる</h4>
+                  <p class="text-sm opacity-80">独学だと“おもしろい”が続かない…</p>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="card bg-base-200 shadow-sm">
+            <div class="card-body">
+              <div class="flex items-start gap-3">
+                <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor">
+                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                    d="M12 18h.01M12 14a4 4 0 10-4-4h.01M12 14v2" />
+                </svg>
+                <div>
+                  <h4 class="font-bold mb-1">実力が見えにくい</h4>
+                  <p class="text-sm opacity-80">“できた！”が見える評価・作品づくりがしたい</p>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="card bg-base-200 p-6 shadow-md">
-          <h3 class="font-bold mb-2">🧠 思考力</h3>
-          <p>プログラミングを通じて論理的に考える力を鍛えます。</p>
+      </div>
+
+      <!-- 解決（Before / After） -->
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="card bg-base-100 border border-base-200">
+          <div class="card-body">
+            <span class="badge badge-ghost">Before</span>
+            <ul class="list-disc list-inside space-y-1 mt-2 text-sm">
+              <li>テキストを読むだけでつまらない</li>
+              <li>質問できずに止まってしまう</li>
+              <li>作って終わり、振り返りがない</li>
+            </ul>
+          </div>
         </div>
-        <div class="card bg-base-200 p-6 shadow-md">
-          <h3 class="font-bold mb-2">🌍 未来の選択肢</h3>
-          <p>進学・就職・研究など、将来の可能性を広げる学びに。</p>
+        <div class="card bg-base-100 border border-base-200">
+          <div class="card-body">
+            <span class="badge badge-primary text-primary-content">After（本教室）</span>
+            <ul class="list-disc list-inside space-y-1 mt-2 text-sm">
+              <li>対話型で“なぜ？”を一緒に考える</li>
+              <li>小さな作品→発表→フィードバックの循環</li>
+              <li>進捗が見える個別プラン＆宿題サポート</li>
+            </ul>
+          </div>
         </div>
-      </div> -->
+      </div>
+
+      <!-- 学びの流れ（Steps） -->
+      <div class="space-y-4">
+        <h3 class="text-xl font-semibold text-center">学びの流れ</h3>
+        <ul class="steps steps-vertical md:steps-horizontal w-full">
+          <li class="step step-primary">無料体験</li>
+          <li class="step step-primary">目標すり合わせ</li>
+          <li class="step step-primary">学習開始</li>
+          <li class="step">“好き”が”夢中”に</li>
+        </ul>
+      </div>
+
+      <!-- ひとこと（声） -->
+      <div class="card bg-base-200 shadow-sm">
+        <div class="card-body md:flex md:items-center md:gap-6">
+          <div class="avatar hidden md:inline-flex">
+            <div class="w-16 rounded-full ring ring-primary/30">
+              <img src="https://placehold.jp/80x80.png" alt="voice">
+            </div>
+          </div>
+          <blockquote class="text-base leading-relaxed">
+            <span class="font-semibold">保護者の声：</span>
+            「最初はゲーム好きなだけでしたが、いまは“こう動かすにはどう書く？”と
+            自分で調べて作れるようになりました。失敗しても楽しんで挑戦しています。」
+          </blockquote>
+        </div>
+      </div>
+
+      <!-- ミニCTA -->
+      <div class="text-center">
+        <a href="#cta" class="btn btn-primary btn-wide">✅ 無料体験で雰囲気を知る</a>
+        <p class="text-xs opacity-70 mt-2">所要 50分/保護者の同伴可</p>
+      </div>
     </div>
   </section>
+
 
   <!-- 🟩 講座紹介 -->
   <section class="py-16 px-6 bg-base-100">
@@ -207,10 +291,12 @@
                 <span class="badge badge-primary badge-sm">必修</span>
               </td>
               <td>
-                タイピングなどコンピューター操作の基本からプログラミングの概念、Pythonの基礎文法まで丁寧に教えます。
-                <br />本教室が開発した学習サイトHibiki codeを教材として使用し、一人ひとりの学生の得意、苦手を見極めた上、宿題や学習プランを策定しています。
+                パソコン操作やタイピングからスタートし、プログラミングの考え方を少しずつ学んでいきます。<br><br>
+                「順番に命令を並べるとコンピューターが動く」という基本を体感しながら、Pythonという人気
+                の言語を使って簡単なプログラムを作ります。<br><br>
+                市販の教材と本教室オリジナルの学習サイトを活用し、お子さまの得意・苦手に合わせて宿題や学習プランを
+                調整するので安心です。<br>
 
-                <br />
                 <span class="badge badge-outline badge-sm">パソコン操作</span>
                 <span class="badge badge-outline badge-sm">基礎文法</span>
                 <span class="badge badge-outline badge-sm">基礎文法</span>
@@ -227,8 +313,9 @@
                 <span class="badge badge-secondary badge-sm">選択</span>
               </td>
               <td>
-
-                <br />
+                身近な「Webサイト」を、自分の手で作ってみるコースです。<br><br>
+                プログラミングの知識が少し増えてきたら、Pythonを使って簡単なアプリを画面に表示させる体験をします。<br><br>
+                「自分の作ったものがパソコン上で動く」達成感を味わえるのが特徴です。<br>
                 <span class="badge badge-outline badge-sm">基礎文法</span>
               </td>
               <td>半年</td>
@@ -242,8 +329,9 @@
                 <span class="badge badge-secondary badge-sm">選択</span>
               </td>
               <td>
-                Pygameを使った2Dゲーム開発
-                <br />
+                ゲーム好きのお子さまに人気のコースです。<br><br>
+                Pythonで動く「Pygame」という仕組みを使い、キャラクターが動いたり音が鳴ったりする2Dゲームを作ります。<br><br>
+                遊びながら試行錯誤することで、自然と論理的な考え方やデザインの工夫が身につきます。<br>
                 <span class="badge badge-outline badge-sm">基礎文法</span>
               </td>
               <td>半年</td>
@@ -257,9 +345,10 @@
                 <span class="badge badge-secondary badge-sm">選択</span>
               </td>
               <td>
-                競技プログラミングとは…<br>
-                アルゴリズムとは…
-                <br />
+                より深く学びたいお子さま向けの応用コースです。<br><br>
+                「アルゴリズム」とは、問題を効率よく解くための“考え方の道筋”のこと。<br><br>
+                パズルや謎解きのような課題に取り組みながら、数学的思考力や問題解決力を伸ばします。
+                将来の受験やIT分野の学びにもつながる力を育みます。<br>
                 <span class="badge badge-outline badge-sm">基礎文法</span>
               </td>
               <td>一年</td>
@@ -324,7 +413,7 @@
       <div class="flex flex-wrap justify-center gap-6">
         <div class="card bg-base-100 w-80 shadow-sm">
           <figure>
-            <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="Shoes" />
+            <img src="imgs/teachers/teacher_sato.png" alt="Shoes" />
           </figure>
           <div class="card-body">
             <h2 class="card-title">
@@ -358,7 +447,7 @@
 
         <div class="card bg-base-100 w-80 shadow-sm">
           <figure>
-            <img src="https://img.daisyui.com/images/stock/photo-1606107557195-0e29a4b5b4aa.webp" alt="Shoes" />
+            <img src="imgs/teachers/teacher_shisei.png" alt="Shoes" />
           </figure>
           <div class="card-body">
             <h2 class="card-title">
