@@ -15,6 +15,11 @@
     .rocknroll {
       font-family: 'RocknRoll One', sans-serif;
     }
+
+    /* Tailwindだけだとやや足りないテキストの影を補強 */
+    .text-shadow-light {
+      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    }
   </style>
   <!-- Google Fonts: RocknRoll One -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -69,7 +74,7 @@
         <a href="#cta" class="btn btn-primary btn-lg">✅ 無料体験に申し込む</a>
       </div>
     </div>
-    <!-- 下にスクロールを促す矢印 -->
+
     <!-- 下にスクロールを促す矢印 -->
     <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
       <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-600" fill="none" viewBox="0 0 24 24"
@@ -79,13 +84,65 @@
     </div>
   </section>
 
+  <section class="py-16 px-6 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold mb-12 text-center">
+        学生が主役のプログラミング教室
+      </h2>
+
+      <!-- 教室風景ギャラリー -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+
+        <!-- カード1 -->
+        <div class="relative max-w-xl mx-auto rounded-lg overflow-hidden shadow-lg">
+          <img src="imgs/test.webp" alt="教室風景" class="w-full h-auto object-cover">
+
+          <div class="absolute bottom-0 w-full bg-gradient-to-t from-black/70 to-transparent p-4">
+            <p class="text-white text-lg font-semibold drop-shadow">
+              普段の教室の様子（個人情報保護の観点上、画像は加工しています）
+            </p>
+          </div>
+        </div>
+
+        <!-- カード2 -->
+        <div class="relative max-w-xl mx-auto rounded-lg overflow-hidden shadow-lg">
+          <img src="imgs/test.webp" alt="学生の活動" class="w-full h-auto object-cover">
+
+          <div class="absolute bottom-0 w-full bg-gradient-to-t from-black/70 to-transparent p-4">
+            <p class="text-white text-lg font-semibold drop-shadow">
+              サイトを作っている学生（個人情報保護の観点上、画像は加工しています）
+            </p>
+          </div>
+        </div>
+
+      </div>
+      <h2 class="text-3xl font-bold mb-12 text-center">
+        一度お子様とお越しください！
+      </h2>
+    </div>
+  </section>
+
   <!-- 🟦 共感セクション -->
   <section class="py-16 px-6 bg-white">
     <div class="max-w-3xl mx-auto">
-      <h2 class="text-3xl font-bold mb-6 text-center">変化の激しい時代に、“今、何を学ぶか”で未来は変わる。</h2>
-      <p class="mb-6 leading-relaxed">AI、データ、情報活用力… 子どもたちの未来に欠かせない力が、今求められています。学校の授業だけでは学べない実践的なスキルを、楽しみながら身につけることが大切です。
+      <h2 class="text-3xl font-bold mb-6 text-center">
+        変化の激しい時代に、
+        “今、何を学ぶか”で未来は変わる。
+      </h2>
+      <p class="mb-6 leading-relaxed">
+        AI、データ、情報活用力… 子どもたちの未来に欠かせない力が、
+        今求められています。学校の授業だけでは学べない実践的なスキルを、
+        楽しみながら身につけることが大切です。
       </p>
-      <ul class="list-disc list-inside mb-6">
+      <p class="mb-6 leading-relaxed">
+        最初は「なんとなく面白そう」で始めた子が、
+        気づけば自分でPythonのコードを書いて、作品を完成させている。
+
+        そんな姿が、教室では日常です。
+        興味のあることに取り組むからこそ、こどもたちは自分から学びたくなる。
+        そしてその過程で、確かなスキルと自信を手に入れていきます。
+      </p>
+      <!-- <ul class="list-disc list-inside mb-6">
         <li>「何を学ばせればいいか分からない」</li>
         <li>「勉強が苦手でもついていける？」</li>
         <li>「将来の選択肢を広げてあげたい」</li>
@@ -107,7 +164,7 @@
           <h3 class="font-bold mb-2">🌍 未来の選択肢</h3>
           <p>進学・就職・研究など、将来の可能性を広げる学びに。</p>
         </div>
-      </div>
+      </div> -->
     </div>
   </section>
 
@@ -133,88 +190,83 @@
     </div>
   </section>
 
+
   <!-- 🟨 カリキュラム紹介 -->
-  <section class="py-16 px-6 bg-white text-center">
-    <h2 class="text-3xl font-bold mb-6">カリキュラム紹介</h2>
+  <section class="py-16 px-6 bg-white">
+    <div class="max-w-5xl mx-auto">
+      <h2 class="text-3xl font-bold mb-6 text-center">カリキュラム紹介</h2>
 
-    <div class="overflow-x-auto">
-      <table class="table w-full">
-        <thead>
-          <tr>
-            <th>講座名</th>
-            <th>学べる内容</th>
-            <th>期間</th>
-            <th></th>
-          </tr>
-        </thead>
-        <tbody>
-          <!-- row 1 -->
-          <tr>
-            <td class="font-bold">
-              Python入門
-              <br />
-              <span class="badge badge-primary badge-sm">必修</span>
-            </td>
-            <td>
-              タイピングなどコンピューター操作の基本からプログラミングの概念、Pythonの基礎文法まで丁寧に教えます。
-              <br />本教室が開発した学習サイトHibiki codeを教材として使用し、一人ひとりの学生の得意、苦手を見極めた上、宿題や学習プランを策定しています。
+      <div class="overflow-x-auto">
+        <table class="table w-full">
+          <tbody>
+            <!-- row 1 -->
+            <tr>
+              <td class="font-bold">
+                Python入門
+                <br />
+                <span class="badge badge-primary badge-sm">必修</span>
+              </td>
+              <td>
+                タイピングなどコンピューター操作の基本からプログラミングの概念、Pythonの基礎文法まで丁寧に教えます。
+                <br />本教室が開発した学習サイトHibiki codeを教材として使用し、一人ひとりの学生の得意、苦手を見極めた上、宿題や学習プランを策定しています。
 
-              <br />
-              <span class="badge badge-outline badge-sm">パソコン操作</span>
-              <span class="badge badge-outline badge-sm">基礎文法</span>
-              <span class="badge badge-outline badge-sm">基礎文法</span>
+                <br />
+                <span class="badge badge-outline badge-sm">パソコン操作</span>
+                <span class="badge badge-outline badge-sm">基礎文法</span>
+                <span class="badge badge-outline badge-sm">基礎文法</span>
 
-            </td>
-            <td>半年<br>～<br>一年</td>
-          </tr>
+              </td>
+              <td>半年<br>～<br>一年</td>
+            </tr>
 
-          <!-- row 2 -->
-          <tr>
-            <td class="font-bold">
-              Web開発基礎
-              <br />
-              <span class="badge badge-secondary badge-sm">選択</span>
-            </td>
-            <td>
+            <!-- row 2 -->
+            <tr>
+              <td class="font-bold">
+                Web開発基礎
+                <br />
+                <span class="badge badge-secondary badge-sm">選択</span>
+              </td>
+              <td>
 
-              <br />
-              <span class="badge badge-outline badge-sm">基礎文法</span>
-            </td>
-            <td>半年</td>
-          </tr>
+                <br />
+                <span class="badge badge-outline badge-sm">基礎文法</span>
+              </td>
+              <td>半年</td>
+            </tr>
 
-          <!-- row 3 -->
-          <tr>
-            <td class="font-bold">
-              ビジュアルデザイン
-              <br />
-              <span class="badge badge-secondary badge-sm">選択</span>
-            </td>
-            <td>
-              Pygameを使った2Dゲーム開発
-              <br />
-              <span class="badge badge-outline badge-sm">基礎文法</span>
-            </td>
-            <td>半年</td>
-          </tr>
+            <!-- row 3 -->
+            <tr>
+              <td class="font-bold">
+                ビジュアルデザイン
+                <br />
+                <span class="badge badge-secondary badge-sm">選択</span>
+              </td>
+              <td>
+                Pygameを使った2Dゲーム開発
+                <br />
+                <span class="badge badge-outline badge-sm">基礎文法</span>
+              </td>
+              <td>半年</td>
+            </tr>
 
-          <!-- row 4 -->
-          <tr>
-            <td class="font-bold">
-              競技プログラミング<br>・アルゴリズム
-              <br />
-              <span class="badge badge-secondary badge-sm">選択</span>
-            </td>
-            <td>
-              競技プログラミングとは…<br>
-              アルゴリズムとは…
-              <br />
-              <span class="badge badge-outline badge-sm">基礎文法</span>
-            </td>
-            <td>一年</td>
-          </tr>
-        </tbody>
-      </table>
+            <!-- row 4 -->
+            <tr>
+              <td class="font-bold">
+                競技プログラミング<br>・アルゴリズム
+                <br />
+                <span class="badge badge-secondary badge-sm">選択</span>
+              </td>
+              <td>
+                競技プログラミングとは…<br>
+                アルゴリズムとは…
+                <br />
+                <span class="badge badge-outline badge-sm">基礎文法</span>
+              </td>
+              <td>一年</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
   </section>
 
