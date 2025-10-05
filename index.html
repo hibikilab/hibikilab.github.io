@@ -36,6 +36,19 @@
     .text-shadow-lg {
       text-shadow: 0 8px 24px rgba(0, 0, 0, .35), 0 2px 6px rgba(0, 0, 0, .25);
     }
+
+    @keyframes fadeVideo {
+
+      0%,
+      50% {
+        opacity: 0;
+      }
+
+      50.01%,
+      100% {
+        opacity: 1;
+      }
+    }
   </style>
 </head>
 
@@ -62,27 +75,43 @@
   </div>
 
   <!-- 🟥 ヒーローセクション -->
-  <section class="hero min-h-screen bg-base-200 relative text-white"
-    style="background-image: url('https://placehold.jp/30/f5f5f5/ffffff/800x800.png'); background-size: cover; background-position: center;">
-    <div class="hero-overlay bg-opacity-40"></div>
-    <div class="hero-content text-center relative z-10">
-      <div class="max-w-2xl">
-        <h1 class="rocknroll-one-regular text-5xl md:text-5xl lg:text-7xl font-bold mb-4 text-shadow-lg">
-          “やってみたい”が止まらない！こどもが主役のプログラミング教室</h1>
-        <p class="rocknroll mb-6 text-xl drop-shadow-md">
-          小学校高学年から中高生まで。“はじめて”でも安心して学べる、今注目のプログラミング講座です。</p>
-        <a href="#cta" class="btn btn-primary btn-lg">✅ 無料体験に申し込む</a>
-      </div>
+  <section class="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
+
+    <!-- 🎬 背景動画（2つを交互に重ねて再生） -->
+    <video class="absolute inset-0 w-full h-full object-cover opacity-100" autoplay muted loop playsinline>
+      <source src="video/design.mp4" type="video/mp4">
+      お使いのブラウザは動画再生に対応していません。
+    </video>
+    <video class="absolute inset-0 w-full h-full object-cover opacity-0 animate-[fadeVideo_16s_infinite]" autoplay muted
+      loop playsinline>
+      <source src="video/web.mp4" type="video/mp4">
+    </video>
+
+    <!-- 🔲 オーバーレイ -->
+    <div class="absolute inset-0 bg-black/40"></div>
+
+    <!-- 📝 テキスト -->
+    <div class="relative z-10 text-center px-6 max-w-2xl">
+      <h1 class="rocknroll-one-regular text-5xl md:text-5xl lg:text-7xl font-bold mb-4 text-shadow-lg">
+        “やってみたい”が止まらない！こどもが主役のプログラミング教室
+      </h1>
+      <p class="rocknroll mb-6 text-xl drop-shadow-md">
+        小学校高学年から中高生まで。“はじめて”でも安心して学べる、今注目のプログラミング講座です。
+      </p>
+      <a href="#cta" class="btn btn-primary btn-lg">✅ 無料体験に申し込む</a>
     </div>
 
     <!-- 下にスクロールを促す矢印 -->
     <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-600" fill="none" viewBox="0 0 24 24"
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-200" fill="none" viewBox="0 0 24 24"
         stroke="currentColor">
         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M19 9l-7 7-7-7" />
       </svg>
     </div>
+
   </section>
+
+
 
   <section class="py-16 px-6 bg-white">
     <div class="max-w-5xl mx-auto">
