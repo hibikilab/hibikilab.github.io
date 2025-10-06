@@ -74,48 +74,156 @@
     </div>
   </div>
 
-<!-- 🟥 ヒーローセクション -->
-<section class="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
+  <!-- 🟥 ヒーローセクション（画像プリショー → 動画） -->
+  <section id="hero" class="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
 
-  <!-- 🎬 背景動画 -->
-  <video class="absolute inset-0 w-full h-full object-cover opacity-100" autoplay muted loop playsinline>
-    <source src="video/design.mp4" type="video/mp4">
-  </video>
-  <video class="absolute inset-0 w-full h-full object-cover opacity-0 animate-[fadeVideo_16s_infinite]" autoplay muted loop playsinline>
-    <source src="video/web.mp4" type="video/mp4">
-  </video>
+    <!-- 画像スライダー（動画より前、オーバーレイより下に置く） -->
+    <div id="bg-image-slider" class="absolute inset-0 w-full h-full z-0 pointer-events-none">
+      <!-- 各 img は重ねて配置し、opacity で切り替える -->
+      <img src="imgs/open/open_1.jpeg" alt=""
+        class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out">
+      <img src="imgs/open/open_2.jpeg" alt=""
+        class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out">
+      <img src="imgs/open/open_3.jpeg" alt=""
+        class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out">
+      <img src="imgs/open/open_4.png" alt=""
+        class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out">
+    </div>
 
-  <!-- 🔲 オーバーレイ -->
-  <div class="absolute inset-0 bg-black/40"></div>
+    <!-- 🎬 背景動画（最初は透明にしておく） -->
+    <video id="hero-video" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700"
+      muted playsinline>
+      <source src="video/design.mp4" type="video/mp4">
+    </video>
+    <video id="hero-video-fade"
+      class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700" muted playsinline>
+      <source src="video/web.mp4" type="video/mp4">
+    </video>
 
-  <!-- 📝 テキスト -->
-  <div class="relative z-10 text-center px-6 max-w-2xl">
-    <h1 class="rocknroll-one-regular text-5xl md:text-5xl lg:text-7xl font-bold mb-4 text-shadow-strong">
-      “やってみたい”が止まらない！こどもが主役のプログラミング教室
-    </h1>
-    <p class="rocknroll mb-6 text-xl text-shadow-strong">
-      小学校高学年から中高生まで。“はじめて”でも安心して学べる、今注目のプログラミング講座です。
-    </p>
-    <a href="#cta" class="btn btn-primary btn-lg">✅ 無料体験に申し込む</a>
-  </div>
+    <!-- 🔲 オーバーレイ（画像・動画を暗くして文字を読みやすく） -->
+    <div class="absolute inset-0 bg-black/40 z-20"></div>
 
-  <!-- 下にスクロールを促す矢印 -->
-  <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce z-10">
-    <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-200" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M19 9l-7 7-7-7" />
-    </svg>
-  </div>
+    <!-- 📝 テキスト（必ず前面に表示） -->
+    <div class="relative z-30 text-center px-6 max-w-2xl">
+      <h1 class="rocknroll-one-regular text-4xl md:text-5xl lg:text-7xl font-bold mb-4 text-shadow-strong">
+        “好き”が”夢中”に。“夢中”が”未来”に役に立つ。
+      </h1>
+      <p class="rocknroll mb-6 text-xl text-shadow-strong">
+        小学校高学年から中高生まで。“はじめて”でも安心して学べる、今注目のプログラミング講座です。
+      </p>
+      <a href="#cta" class="btn btn-primary btn-lg">✅ 無料体験に申し込む</a>
+    </div>
 
-</section>
+    <!-- 下にスクロールを促す矢印 -->
+    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce z-30">
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-200" fill="none" viewBox="0 0 24 24"
+        stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M19 9l-7 7-7-7" />
+      </svg>
+    </div>
 
-<!-- 💬 テキスト影を強めるCSS -->
-<style>
-.text-shadow-strong {
-  text-shadow:
-    0 2px 6px rgba(0, 0, 0, 0.951),
-    0 4px 20px rgba(0, 0, 0, 0.847);
-}
-</style>
+  </section>
+
+  <!-- 下にスクリプト（body の最後、または外部 JS ファイルに） -->
+  <script>
+    document.addEventListener('DOMContentLoaded', async () => {
+      const slider = document.getElementById('bg-image-slider');
+      const imgEls = Array.from(slider.querySelectorAll('img'));
+      const videos = [
+        document.getElementById('hero-video'),
+        document.getElementById('hero-video-fade')
+      ];
+
+      // 1) 画像をプリロード（読み込みに失敗しても先に進む）
+      await Promise.all(imgEls.map(img => new Promise(resolve => {
+        if (img.complete) return resolve();
+        img.onload = img.onerror = () => resolve();
+      })));
+
+      // 2) 画像を順番に1秒ずつ表示（フェードは CSS で 500ms）
+      for (let i = 0; i < imgEls.length; i++) {
+        // 全ての画像を透明にしてから現在の画像だけ表示
+        imgEls.forEach(el => el.classList.remove('opacity-100'));
+        imgEls.forEach(el => el.classList.add('opacity-0'));
+        imgEls[i].classList.remove('opacity-0');
+        imgEls[i].classList.add('opacity-100');
+        // 1秒表示
+        await new Promise(r => setTimeout(r, 1000));
+      }
+
+      // 3) スライダーをフェードアウトして無効化
+      slider.classList.add('opacity-0', 'pointer-events-none');
+      // 少し余裕を持たせて動画をフェードインさせながら再生
+      setTimeout(() => {
+        videos.forEach(v => {
+          // muted/playsinline は属性で入れてあるが念のため
+          v.muted = true;
+          // 動画をフェードイン（Tailwind の opacity utility を追加）
+          v.classList.remove('opacity-0');
+          v.classList.add('opacity-100');
+          // プログラムで再生（muted なら大抵許可される）
+          v.play().catch(() => {
+            // 自動再生がブロックされた場合は何もしない（ユーザー操作で解決）
+            console.warn('video.play() was blocked by browser autoplay policy.');
+          });
+        });
+
+        // もう邪魔なら画像要素を DOM から削除してメモリ解放
+        setTimeout(() => { slider.remove(); }, 800);
+      }, 300); // 画像フェードアウトが始まってから動画をフェードイン
+    });
+  </script>
+
+
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const images = document.querySelectorAll(".intro-image");
+      const slideshow = document.getElementById("intro-slideshow");
+      const video1 = document.getElementById("video1");
+
+      let index = 0;
+
+      // 最初の画像を表示
+      images[index].classList.add("opacity-100");
+
+      const interval = setInterval(() => {
+        // 現在の画像をフェードアウト
+        images[index].classList.remove("opacity-100");
+
+        index++;
+
+        if (index < images.length) {
+          // 次の画像をフェードイン
+          images[index].classList.add("opacity-100");
+        } else {
+          clearInterval(interval);
+          // 全部の画像が終わったらスライドショーを非表示
+          slideshow.style.display = "none";
+          // 背景動画をフェードイン
+          video1.classList.add("opacity-100");
+        }
+      }, 500); // 0.5秒ごとに切り替え
+    });
+  </script>
+
+
+  <!-- 💬 テキスト影を強めるCSS -->
+  <style>
+    .intro-image {
+      transition: opacity 0.3s ease-in-out;
+    }
+
+    .opacity-100 {
+      opacity: 1 !important;
+    }
+
+    .text-shadow-strong {
+      text-shadow:
+        0 2px 6px rgba(0, 0, 0, 0.951),
+        0 4px 20px rgba(0, 0, 0, 0.847);
+    }
+  </style>
 
 
 
@@ -132,13 +240,10 @@
         <!-- カード1 -->
         <div class="relative max-w-xl mx-auto rounded-lg overflow-hidden shadow-lg">
           <img src="imgs/class/class_1.png" alt="教室風景" class="w-full h-auto object-cover">
-
           <div class="absolute bottom-0 w-full bg-gradient-to-t from-black/70 to-transparent p-4">
             <p class="text-white text-lg font-semibold drop-shadow">
               普段の教室の様子
-              <span class="text-xs font-normal">
-                （個人情報保護の観点上、画像は加工しています）
-              </span>
+              <span class="text-xs font-normal">（個人情報保護の観点上、画像は加工しています）</span>
             </p>
           </div>
         </div>
@@ -146,27 +251,26 @@
         <!-- カード2 -->
         <div class="relative max-w-xl mx-auto rounded-lg overflow-hidden shadow-lg">
           <img src="imgs/class/class_2.png" alt="学生の活動" class="w-full h-auto object-cover">
-
           <div class="absolute bottom-0 w-full bg-gradient-to-t from-black/70 to-transparent p-4">
             <p class="text-white text-lg font-semibold drop-shadow">
               普段の教室の様子
-              <span class="text-xs font-normal">
-                （個人情報保護の観点上、画像は加工しています）
-              </span>
+              <span class="text-xs font-normal">（個人情報保護の観点上、画像は加工しています）</span>
             </p>
           </div>
         </div>
 
       </div>
-      <h2 class="text-3xl font-bold mb-12 text-center">
+
+      <!-- ↓ この見出しの下マージンを狭くしました（mb-12 → mb-6） -->
+      <h2 class="text-3xl font-bold mb-6 text-center">
         一度お子様とお越しください！
       </h2>
     </div>
   </section>
 
-  <!-- 🟦 共感セクション（置き換え推奨） -->
-  <section id="empathy" class="py-20 px-6 bg-white">
-    <div class="max-w-5xl mx-auto space-y-12">
+  <!-- 🟦 共感セクション（上余白を小さくしました） -->
+  <section id="empathy" class="py-12 px-6 bg-white"> <!-- py-20 → py-12 -->
+    <div class="max-w-5xl mx-auto space-y-8"> <!-- space-y-12 → space-y-8 -->
       <!-- 見出し + リード -->
       <header class="text-center space-y-4">
         <h2 class="text-3xl md:text-4xl font-bold">
@@ -184,7 +288,6 @@
           <div class="card bg-base-200 shadow-sm">
             <div class="card-body">
               <div class="flex items-start gap-3">
-                <!-- icon -->
                 <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 shrink-0" fill="none" viewBox="0 0 24 24"
                   stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
@@ -228,29 +331,110 @@
         </div>
       </div>
 
-      <!-- 解決（Before / After） -->
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="card bg-base-100 border border-base-200">
-          <div class="card-body">
-            <span class="badge badge-ghost">Before</span>
-            <ul class="list-disc list-inside space-y-1 mt-2 text-sm">
-              <li>テキストを読むだけでつまらない</li>
-              <li>質問できずに止まってしまう</li>
-              <li>作って終わり、振り返りがない</li>
-            </ul>
+      <!-- 改良版：解決（Before / After） -->
+      <div class="grid gap-6 md:grid-cols-2 items-stretch">
+        <!-- BEFORE -->
+        <article class="card bg-base-100 border border-base-200 rounded-lg shadow-sm p-6 flex flex-col justify-between">
+          <header class="flex items-start gap-4">
+            <!-- デコアイコン（問題） -->
+            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 text-gray-700 shrink-0"
+              aria-hidden="true">
+              <!-- X icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </div>
+
+            <div>
+              <span class="badge badge-ghost">Before</span>
+              <h3 class="mt-2 text-lg font-bold text-gray-800">学習が続かない・成果が見えにくい</h3>
+              <p class="mt-1 text-sm text-gray-500">よくあるつまずき（観察に基づく代表例）</p>
+            </div>
+          </header>
+
+          <ul class="mt-4 list-inside space-y-3 text-sm text-gray-700 leading-relaxed">
+            <li class="flex items-start gap-3">
+              <!-- bullet icon -->
+              <svg class="w-5 h-5 shrink-0 mt-0.5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <circle cx="12" cy="12" r="3" stroke-width="1.5" />
+              </svg>
+              <span>テキスト中心で実感が沸かない</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 shrink-0 mt-0.5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <circle cx="12" cy="12" r="3" stroke-width="1.5" />
+              </svg>
+              <span>質問できずに先へ進めない</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 shrink-0 mt-0.5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <circle cx="12" cy="12" r="3" stroke-width="1.5" />
+              </svg>
+              <span>作って終わりで振り返りがない</span>
+            </li>
+          </ul>
+
+          <p class="mt-6 text-xs text-gray-400">※上は典型的な Before 例です（保護者・生徒の声を元に要約）。</p>
+        </article>
+
+        <!-- AFTER -->
+        <article class="card bg-base-100 border border-base-200 rounded-lg shadow-sm p-6 flex flex-col justify-between">
+          <header class="flex items-start gap-4">
+            <!-- デコアイコン（解決） -->
+            <div
+              class="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 text-primary shrink-0"
+              aria-hidden="true">
+              <!-- Check icon -->
+              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
+                stroke="currentColor" stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
+              </svg>
+            </div>
+
+            <div>
+              <span class="badge badge-primary text-primary-content">After（本教室）</span>
+              <h3 class="mt-2 text-lg font-bold text-gray-800">主体的に学び、成果が見える</h3>
+              <p class="mt-1 text-sm text-gray-500">具体的に変わるポイント</p>
+            </div>
+          </header>
+
+          <ul class="mt-4 list-inside space-y-3 text-sm text-gray-700 leading-relaxed">
+            <li class="flex items-start gap-3">
+              <!-- success icon -->
+              <svg class="w-5 h-5 shrink-0 mt-0.5 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>対話型で「なぜ？」を一緒に掘り下げる</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 shrink-0 mt-0.5 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>小さな作品→発表→フィードバックの循環で定着</span>
+            </li>
+            <li class="flex items-start gap-3">
+              <svg class="w-5 h-5 shrink-0 mt-0.5 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none"
+                viewBox="0 0 24 24" stroke="currentColor">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
+              </svg>
+              <span>進捗が見える個別プランと宿題サポート</span>
+            </li>
+          </ul>
+
+          <!-- CTA と補助情報：行動に繋げる -->
+          <div class="mt-6 flex items-center justify-between gap-4">
+            <a href="#cta" class="btn btn-primary btn-sm">✅ 無料体験を申し込む</a>
+            <p class="text-xs text-gray-500">所要 50分 / 保護者の同伴可</p>
           </div>
-        </div>
-        <div class="card bg-base-100 border border-base-200">
-          <div class="card-body">
-            <span class="badge badge-primary text-primary-content">After（本教室）</span>
-            <ul class="list-disc list-inside space-y-1 mt-2 text-sm">
-              <li>対話型で“なぜ？”を一緒に考える</li>
-              <li>小さな作品→発表→フィードバックの循環</li>
-              <li>進捗が見える個別プラン＆宿題サポート</li>
-            </ul>
-          </div>
-        </div>
+        </article>
       </div>
+
 
       <!-- 学びの流れ（Steps） -->
       <div class="space-y-4">
@@ -263,7 +447,7 @@
         </ul>
       </div>
 
-      <!-- ひとこと（声） -->
+      <!-- 保護者の声 -->
       <div class="card bg-base-200 shadow-sm">
         <div class="card-body md:flex md:items-center md:gap-6">
           <div class="avatar hidden md:inline-flex">
@@ -284,8 +468,21 @@
         <a href="#cta" class="btn btn-primary btn-wide">✅ 無料体験で雰囲気を知る</a>
         <p class="text-xs opacity-70 mt-2">所要 50分/保護者の同伴可</p>
       </div>
+
     </div>
   </section>
+
+  <!-- 見出し -->
+  <header class="text-center space-y-4">
+    <h2 class="text-3xl md:text-4xl font-bold">
+      変化の激しい時代に、<br class="md:hidden" />“今、何を学ぶか”で未来は変わる。
+    </h2>
+    <p class="text-lg text-base-content/80 leading-relaxed">
+      AI・データ・情報活用力。学校だけでは触れにくい“実践”を、楽しく、やさしく、続けられる形で。
+    </p>
+  </header>
+  <!-- 以下は元のまま -->
+
 
 
   <!-- 🟩 講座紹介 -->
@@ -314,86 +511,90 @@
   <!-- 🟨 カリキュラム紹介 -->
   <section class="py-16 px-6 bg-white">
     <div class="max-w-5xl mx-auto">
-      <h2 class="text-3xl font-bold mb-6 text-center">カリキュラム紹介</h2>
+      <h2 class="text-4xl font-extrabold text-center mb-10 text-gray-800">
+        カリキュラム紹介
+      </h2>
 
       <div class="overflow-x-auto">
-        <table class="table w-full">
-          <tbody>
+        <table class="table w-full border border-gray-200">
+          <tbody class="[&>tr:nth-child(odd)]:bg-gray-50">
             <!-- row 1 -->
-            <tr>
-              <td class="font-bold">
+            <tr class="hover:bg-gray-100 transition">
+              <td class="w-1/4 align-top font-bold text-lg text-gray-800">
                 Python入門
-                <br />
-                <span class="badge badge-primary badge-sm">必修</span>
+                <span class="ml-2 badge badge-primary text-sm font-semibold">必修</span>
               </td>
-              <td>
-                パソコン操作やタイピングからスタートし、プログラミングの考え方を少しずつ学んでいきます。<br><br>
-                「順番に命令を並べるとコンピューターが動く」という基本を体感しながら、Pythonという人気
-                の言語を使って簡単なプログラムを作ります。<br><br>
-                市販の教材と本教室オリジナルの学習サイトを活用し、お子さまの得意・苦手に合わせて宿題や学習プランを
-                調整するので安心です。<br>
-
-                <span class="badge badge-outline badge-sm">パソコン操作</span>
-                <span class="badge badge-outline badge-sm">基礎文法</span>
-                <span class="badge badge-outline badge-sm">基礎文法</span>
-
+              <td class="leading-relaxed text-gray-700">
+                 <strong class="text-indigo-600">はじめてのプログラミング体験</strong>として、
+                パソコン操作やタイピングからスタート。<br><br>
+                <span class="font-semibold text-indigo-600">
+                  「順番に命令を並べるとコンピューターが動く」
+                </span>
+                という基本を体感しながら、Pythonを使って簡単なプログラムを作ります。<br><br>
+                <span class="badge badge-outline font-semibold">基礎</span>
               </td>
-              <td>半年<br>～<br>一年</td>
+              <td class="w-24 text-center font-bold text-gray-800">
+                半年<br>～<br>1年
+              </td>
             </tr>
 
             <!-- row 2 -->
-            <tr>
-              <td class="font-bold">
+            <tr class="hover:bg-gray-100 transition">
+              <td class="w-1/4 align-top font-bold text-lg text-gray-800">
                 Web開発基礎
-                <br />
-                <span class="badge badge-secondary badge-sm">選択</span>
+                <span class="ml-2 badge badge-secondary text-sm font-semibold">選択</span>
               </td>
-              <td>
-                身近な「Webサイト」を、自分の手で作ってみるコースです。<br><br>
-                プログラミングの知識が少し増えてきたら、Pythonを使って簡単なアプリを画面に表示させる体験をします。<br><br>
-                「自分の作ったものがパソコン上で動く」達成感を味わえるのが特徴です。<br>
-                <span class="badge badge-outline badge-sm">基礎文法</span>
+              <td class="leading-relaxed text-gray-700">
+                <strong class="text-indigo-600">身近な「Webサイト」を自分で作ってみるコースです。</strong><br><br>
+                プログラミングの知識が少し増えたら、Pythonを使って
+                簡単なアプリを画面に表示する体験をします。<br><br>
+                自分の作ったものがパソコン上で動く達成感を味わえます。<br>
+                <span class="badge badge-outline font-semibold">中級</span>
               </td>
-              <td>半年</td>
+              <td class="w-24 text-center font-bold text-gray-800">
+                半年
+              </td>
             </tr>
 
             <!-- row 3 -->
-            <tr>
-              <td class="font-bold">
+            <tr class="hover:bg-gray-100 transition">
+              <td class="w-1/4 align-top font-bold text-lg text-gray-800">
                 ビジュアルデザイン
-                <br />
-                <span class="badge badge-secondary badge-sm">選択</span>
+                <span class="ml-2 badge badge-secondary text-sm font-semibold">選択</span>
               </td>
-              <td>
-                ゲーム好きのお子さまに人気のコースです。<br><br>
-                Pythonで動く「Pygame」という仕組みを使い、キャラクターが動いたり音が鳴ったりする2Dゲームを作ります。<br><br>
-                遊びながら試行錯誤することで、自然と論理的な考え方やデザインの工夫が身につきます。<br>
-                <span class="badge badge-outline badge-sm">基礎文法</span>
+              <td class="leading-relaxed text-gray-700">
+                 <strong class="text-indigo-600">ゲーム好きのお子さまに人気のコースです。</strong><br><br>
+                Pythonで、2Dデザインやキャラクターが動いたり音が鳴ったりする2Dゲームを作ります。<br><br>
+                遊びながら試行錯誤し、 <strong class="text-indigo-600">論理的思考力やデザイン力</strong>を育てます。<br>
+                <span class="badge badge-outline font-semibold">やや上級</span>
               </td>
-              <td>半年</td>
+              <td class="w-24 text-center font-bold text-gray-800">
+                半年
+              </td>
             </tr>
 
             <!-- row 4 -->
-            <tr>
-              <td class="font-bold">
+            <tr class="hover:bg-gray-100 transition">
+              <td class="w-1/4 align-top font-bold text-lg text-gray-800">
                 競技プログラミング<br>・アルゴリズム
-                <br />
-                <span class="badge badge-secondary badge-sm">選択</span>
+                <span class="ml-2 badge badge-secondary text-sm font-semibold">選択</span>
               </td>
-              <td>
-                より深く学びたいお子さま向けの応用コースです。<br><br>
-                「アルゴリズム」とは、問題を効率よく解くための“考え方の道筋”のこと。<br><br>
-                パズルや謎解きのような課題に取り組みながら、数学的思考力や問題解決力を伸ばします。
-                将来の受験やIT分野の学びにもつながる力を育みます。<br>
-                <span class="badge badge-outline badge-sm">基礎文法</span>
+              <td class="leading-relaxed text-gray-700">
+                 <strong class="text-indigo-600">パズルや謎解きのような課題</strong>に挑戦しながら、
+                数学的思考力や問題解決力を伸ばします。<br><br>
+                将来の<strong class="text-indigo-600">受験やIT分野の学び</strong>にもつながる力を育みます。<br>
+                <span class="badge badge-outline font-semibold">やや上級</span>
               </td>
-              <td>一年</td>
+              <td class="w-24 text-center font-bold text-gray-800">
+                1年
+              </td>
             </tr>
           </tbody>
         </table>
       </div>
     </div>
   </section>
+
 
 
   <!-- 🟧 講師紹介 -->
