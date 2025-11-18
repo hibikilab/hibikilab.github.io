@@ -1,761 +1,575 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-theme="light">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>小中高生向けのプログラミングコース</title>
-  <!-- daisyUI + Tailwind CDN -->
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@5" rel="stylesheet" type="text/css" />
-  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
-  <link href="https://cdn.jsdelivr.net/npm/daisyui@5/themes.css" rel="stylesheet" type="text/css" />
-  <!-- RocknRoll One フォント -->
-  <link href="https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap" rel="stylesheet">
+
+  <link href="https://cdn.jsdelivr.net/npm/daisyui@4.12.10/dist/full.min.css" rel="stylesheet" type="text/css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=RocknRoll+One&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Zen Kaku Gothic New"', 'sans-serif'],
+            display: ['"RocknRoll One"', 'sans-serif'],
+          },
+          colors: {
+            juku: {
+              primary: '#1e3a8a',   /* 信頼の紺色 */
+              secondary: '#f59e0b', /* 快活なオレンジ */
+              accent: '#dbeafe',    /* 優しい水色 */
+              bg: '#f8fafc',        /* 清潔な背景色 */
+            }
+          }
+        }
+      }
+    }
+  </script>
+
   <style>
-    .rocknroll {
+    body {
+      font-family: 'Zen Kaku Gothic New', sans-serif;
+      background-color: #f8fafc;
+      color: #334155;
+    }
+
+    h1, h2, h3, .font-display {
       font-family: 'RocknRoll One', sans-serif;
     }
 
-    /* Tailwindだけだとやや足りないテキストの影を補強 */
-    .text-shadow-light {
-      text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+    /* ヒーローセクションのテキスト影（可読性確保） */
+    .text-shadow-hero {
+      text-shadow: 0 4px 10px rgba(0, 0, 0, 0.8);
+    }
+
+    /* ストライプ背景（アクセント） */
+    .bg-stripe {
+      background-image: linear-gradient(45deg, #f1f5f9 25%, transparent 25%, transparent 50%, #f1f5f9 50%, #f1f5f9 75%, transparent 75%, transparent);
+      background-size: 20px 20px;
     }
   </style>
-  <!-- Google Fonts: RocknRoll One -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Doto:wght@100..900&family=RocknRoll+One&display=swap"
-    rel="stylesheet">
-  <style>
-    .rocknroll-one-regular {
-      font-family: "RocknRoll One", sans-serif;
-      font-weight: 300;
-      font-style: normal;
-    }
-
-    .text-shadow-lg {
-      text-shadow: 0 8px 24px rgba(0, 0, 0, .35), 0 2px 6px rgba(0, 0, 0, .25);
-    }
-
-    @keyframes fadeVideo {
-
-      0%,
-      50% {
-        opacity: 0;
-      }
-
-      50.01%,
-      100% {
-        opacity: 1;
-      }
-    }
-  </style>
-
-
-
-
 </head>
 
-<body class="bg-base-100 text-base-content">
+<body class="antialiased">
 
-  <div class="navbar bg-base-100 shadow-sm">
+  <div class="navbar bg-white shadow-md sticky top-0 z-50 border-b border-gray-200">
     <div class="flex-1">
-      <a class="btn btn-ghost text-xl">ひびきラボ - プログラミングコース特設ページ</a>
+      <a class="btn btn-ghost text-xl font-bold text-juku-primary tracking-tighter">
+        ひびきラボ<span class="text-sm font-normal text-gray-500 ml-2 hidden md:inline">プログラミングコース特設ページ</span>
+      </a>
     </div>
     <div class="flex-none">
-      <ul class="menu menu-horizontal px-1">
-        <li><a>Link</a></li>
+      <ul class="menu menu-horizontal px-1 font-medium text-gray-600">
+        <li><a href="#empathy">特徴</a></li>
+        <li><a href="#curriculum">カリキュラム</a></li>
         <li>
-          <details>
-            <summary>Parent</summary>
-            <ul class="bg-base-100 rounded-t-none p-2">
-              <li><a>Link 1</a></li>
-              <li><a>Link 2</a></li>
-            </ul>
-          </details>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdqQSK95lODGBjUxacuHQRABH8hCbJMrEXn24g7zC5JjpAsiA/viewform?usp=header" 
+             class="btn bg-juku-secondary hover:bg-yellow-600 text-white border-none ml-2 shadow-md">
+             無料体験申込
+          </a>
         </li>
       </ul>
     </div>
   </div>
 
-  <!-- 🟥 ヒーローセクション（画像プリショー → 動画） -->
-  <section id="hero" class="relative min-h-screen flex items-center justify-center text-white overflow-hidden">
+  <section id="hero" class="relative h-[600px] flex items-center justify-center text-white overflow-hidden bg-gray-900">
 
-    <!-- 画像スライダー（動画より前、オーバーレイより下に置く） -->
-    <div id="bg-image-slider" class="absolute inset-0 w-full h-full z-0 pointer-events-none">
-      <!-- 各 img は重ねて配置し、opacity で切り替える -->
-      <img src="imgs/open/open_1.jpeg" alt=""
-        class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out">
-      <img src="imgs/open/open_2.jpeg" alt=""
-        class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out">
-      <img src="imgs/open/open_3.jpeg" alt=""
-        class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out">
-      <img src="imgs/open/open_4.png" alt=""
-        class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-500 ease-in-out">
+    <div id="bg-wrapper" class="absolute inset-0 w-full h-full z-0">
+        <div id="bg-image-slider" class="absolute inset-0 w-full h-full pointer-events-none">
+            <img src="imgs/open/open_1.jpeg" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000">
+            <img src="imgs/open/open_2.jpeg" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000">
+            <img src="imgs/open/open_3.jpeg" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000">
+            <img src="imgs/open/open_4.png" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000">
+        </div>
+        <video id="hero-video" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-1000" muted playsinline loop>
+             <source src="video/design.mp4" type="video/mp4">
+        </video>
     </div>
 
-    <!-- 🎬 背景動画（最初は透明にしておく） -->
-    <video id="hero-video-fade"
-      class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700" muted playsinline>
-      <source src="video/web.mp4" type="video/mp4">
-    </video>
-    <video id="hero-video" class="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-700"
-      muted playsinline>
-      <source src="video/design.mp4" type="video/mp4">
-    </video>
+    <div class="absolute inset-0 bg-indigo-900/60 z-10"></div>
 
-    <!-- 🔲 オーバーレイ（画像・動画を暗くして文字を読みやすく） -->
-    <div class="absolute inset-0 bg-black/40 z-20"></div>
-
-    <!-- 📝 テキスト（必ず前面に表示） -->
-    <div class="relative z-30 text-center px-6 max-w-2xl">
-      <h1 class="rocknroll-one-regular text-4xl md:text-5xl lg:text-7xl font-bold mb-4 text-shadow-strong">
-        “好き”が”夢中”に。“夢中”が”未来”に役に立つ。
+    <div class="relative z-20 text-center px-6 max-w-4xl mx-auto mt-10">
+      <div class="inline-block bg-juku-secondary text-white px-4 py-1 rounded-full font-bold mb-4 shadow-lg tracking-wider">
+        小中高生対象・プログラミング教室
+      </div>
+      <h1 class="font-display text-4xl md:text-6xl font-bold leading-tight mb-6 text-shadow-hero tracking-wide">
+        “好き”が”夢中”に、<br>
+        “夢中”が”未来”をひらく学びに。
       </h1>
-      <p class="rocknroll mb-6 text-xl text-shadow-strong">
-        小学校高学年から中高生まで。“はじめて”でも安心して学べる、今注目のプログラミング講座です。
+      <p class="text-lg md:text-xl mb-8 leading-relaxed font-medium text-shadow-hero text-gray-100">
+        初めてのパソコンでも安心。文字入力からプログラミングまで、基礎を丁寧にサポートします。<br class="hidden md:block">
+        「できた！」の積み重ねが、自信と挑戦する力を育てます。<br class="hidden md:block">
+        好奇心を大切にしながら、学びを未来の可能性へ広げます。
       </p>
       <a href="https://docs.google.com/forms/d/e/1FAIpQLSdqQSK95lODGBjUxacuHQRABH8hCbJMrEXn24g7zC5JjpAsiA/viewform?usp=header"
-        class="btn btn-primary btn-lg">✅ 無料体験に申し込む</a>
+        class="btn bg-white text-juku-primary hover:bg-gray-100 border-none btn-lg px-10 shadow-xl font-bold rounded-full">
+        無料体験に申し込む <span class="text-xl ml-1">→</span>
+      </a>
     </div>
 
-    <!-- 下にスクロールを促す矢印 -->
-    <div class="absolute bottom-6 left-1/2 transform -translate-x-1/2 animate-bounce z-30">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-16 w-16 text-gray-200" fill="none" viewBox="0 0 24 24"
-        stroke="currentColor">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="4" d="M19 9l-7 7-7-7" />
+    <div class="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce z-20 opacity-80">
+      <span class="text-sm block mb-1">Scroll</span>
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
       </svg>
     </div>
-
   </section>
 
-  <!-- 下にスクリプト（body の最後、または外部 JS ファイルに） -->
   <script>
     document.addEventListener('DOMContentLoaded', async () => {
       const slider = document.getElementById('bg-image-slider');
       const imgEls = Array.from(slider.querySelectorAll('img'));
-      const videos = [
-        document.getElementById('hero-video'),
-        document.getElementById('hero-video-fade')
-      ];
+      const video = document.getElementById('hero-video');
 
-      // 1) 画像をプリロード（読み込みに失敗しても先に進む）
-      await Promise.all(imgEls.map(img => new Promise(resolve => {
-        if (img.complete) return resolve();
-        img.onload = img.onerror = () => resolve();
-      })));
-
-      // 2) 画像を順番に1秒ずつ表示（フェードは CSS で 500ms）
+      // 1. 画像を順次表示
       for (let i = 0; i < imgEls.length; i++) {
-        // 全ての画像を透明にしてから現在の画像だけ表示
         imgEls.forEach(el => el.classList.remove('opacity-100'));
-        imgEls.forEach(el => el.classList.add('opacity-0'));
-        imgEls[i].classList.remove('opacity-0');
         imgEls[i].classList.add('opacity-100');
-        // 1秒表示
-        await new Promise(r => setTimeout(r, 1000));
+        await new Promise(r => setTimeout(r, 1500)); // 間隔を調整
       }
 
-      // 3) スライダーをフェードアウトして無効化
-      slider.classList.add('opacity-0', 'pointer-events-none');
-      // 少し余裕を持たせて動画をフェードインさせながら再生
-      setTimeout(() => {
-        videos.forEach(v => {
-          // muted/playsinline は属性で入れてあるが念のため
-          v.muted = true;
-          // 動画をフェードイン（Tailwind の opacity utility を追加）
-          v.classList.remove('opacity-0');
-          v.classList.add('opacity-100');
-          // プログラムで再生（muted なら大抵許可される）
-          v.play().catch(() => {
-            // 自動再生がブロックされた場合は何もしない（ユーザー操作で解決）
-            console.warn('video.play() was blocked by browser autoplay policy.');
-          });
-        });
-
-        // もう邪魔なら画像要素を DOM から削除してメモリ解放
-        setTimeout(() => { slider.remove(); }, 800);
-      }, 300); // 画像フェードアウトが始まってから動画をフェードイン
+      // 2. 動画へ移行
+      slider.classList.add('opacity-0');
+      video.classList.remove('opacity-0');
+      video.play().catch(e => console.log("Autoplay prevented"));
     });
   </script>
 
-
-  <!-- JavaScript -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const images = document.querySelectorAll(".intro-image");
-      const slideshow = document.getElementById("intro-slideshow");
-      const video1 = document.getElementById("video1");
-
-      let index = 0;
-
-      // 最初の画像を表示
-      images[index].classList.add("opacity-100");
-
-      const interval = setInterval(() => {
-        // 現在の画像をフェードアウト
-        images[index].classList.remove("opacity-100");
-
-        index++;
-
-        if (index < images.length) {
-          // 次の画像をフェードイン
-          images[index].classList.add("opacity-100");
-        } else {
-          clearInterval(interval);
-          // 全部の画像が終わったらスライドショーを非表示
-          slideshow.style.display = "none";
-          // 背景動画をフェードイン
-          video1.classList.add("opacity-100");
-        }
-      }, 500); // 0.5秒ごとに切り替え
-    });
-  </script>
-
-
-  <!-- 💬 テキスト影を強めるCSS -->
-  <style>
-    .intro-image {
-      transition: opacity 0.3s ease-in-out;
-    }
-
-    .opacity-100 {
-      opacity: 1 !important;
-    }
-
-    .text-shadow-strong {
-      text-shadow:
-        0 2px 6px rgba(0, 0, 0, 0.951),
-        0 4px 20px rgba(0, 0, 0, 0.847);
-    }
-  </style>
-
-
-
-
-  <section class="py-16 px-6 bg-white">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-3xl font-bold mb-12 text-center">
-        学生が主役のプログラミング教室
-      </h2>
-
-      <!-- 教室風景ギャラリー -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-
-        <!-- カード1 -->
-        <div class="relative max-w-xl mx-auto rounded-lg overflow-hidden shadow-lg">
-          <img src="imgs/class/class_1.png" alt="教室風景" class="w-full h-auto object-cover">
-          <div class="absolute bottom-0 w-full bg-gradient-to-t from-black/70 to-transparent p-4">
-            <p class="text-white text-lg font-semibold drop-shadow">
-              普段の教室の様子<br>
-              <span class="text-xs font-normal">（個人情報保護の観点上、画像は加工しています）</span>
-            </p>
-          </div>
-        </div>
-
-        <!-- カード2 -->
-        <div class="relative max-w-xl mx-auto rounded-lg overflow-hidden shadow-lg">
-          <img src="imgs/class/class_2.png" alt="学生の活動" class="w-full h-auto object-cover">
-          <div class="absolute bottom-0 w-full bg-gradient-to-t from-black/70 to-transparent p-4">
-            <p class="text-white text-lg font-semibold drop-shadow">
-              普段の教室の様子<br>
-              <span class="text-xs font-normal">（個人情報保護の観点上、画像は加工しています）</span>
-            </p>
-          </div>
-        </div>
-
+  <section class="py-20 px-4 bg-white">
+    <div class="max-w-6xl mx-auto">
+      <div class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-juku-primary mb-4">
+            学生が"主役"のプログラミング教室
+        </h2>
+        <div class="w-20 h-1 bg-juku-secondary mx-auto mb-6"></div>
+        <p class="text-lg text-gray-600">
+            先生が教えるだけでなく、子どもたち自身が考え、挑戦する時間を大切にしています。
+        </p>
       </div>
 
-      <!-- ↓ この見出しの下マージンを狭くしました（mb-12 → mb-6） -->
-      <h2 class="text-3xl font-bold mb-6 text-center">
-        一度お子様とお越しください！
-      </h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div class="card bg-base-100 shadow-xl border border-gray-100 overflow-hidden group">
+          <figure class="relative h-64 overflow-hidden">
+             <img src="imgs/class/class_1.png" alt="教室風景" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+             <div class="absolute top-4 left-4 bg-juku-primary text-white text-xs px-3 py-1 rounded-full">Classroom</div>
+          </figure>
+          <div class="card-body bg-gray-50">
+             <p class="text-gray-600 font-medium text-center">
+                <span class="block text-lg font-bold text-gray-800 mb-1">普段の教室の様子</span>
+                <span class="text-xs text-gray-400">（個人情報保護の観点上、画像は加工しています）</span>
+             </p>
+          </div>
+        </div>
+
+        <div class="card bg-base-100 shadow-xl border border-gray-100 overflow-hidden group">
+            <figure class="relative h-64 overflow-hidden">
+               <img src="imgs/class/class_2.png" alt="教室風景" class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
+               <div class="absolute top-4 left-4 bg-juku-primary text-white text-xs px-3 py-1 rounded-full">Activity</div>
+            </figure>
+            <div class="card-body bg-gray-50">
+               <p class="text-gray-600 font-medium text-center">
+                  <span class="block text-lg font-bold text-gray-800 mb-1">真剣に、でも楽しく</span>
+                  <span class="text-xs text-gray-400">（個人情報保護の観点上、画像は加工しています）</span>
+               </p>
+            </div>
+          </div>
+      </div>
+
+      <div class="mt-12 text-center">
+        <p class="text-xl font-bold text-gray-700">
+            少人数制なので質問しやすく、<br class="md:hidden">子どもたちの成長をしっかり見守れます。
+        </p>
+      </div>
     </div>
   </section>
 
-  <!-- 🟦 共感セクション（上余白を小さくしました） -->
-  <section id="empathy" class="py-12 px-6 bg-white"> <!-- py-20 → py-12 -->
-    <div class="max-w-5xl mx-auto space-y-8"> <!-- space-y-12 → space-y-8 -->
-      <!-- 見出し + リード -->
-      <header class="text-center space-y-4">
-        <h2 class="text-3xl md:text-4xl font-bold">
+  <section id="empathy" class="py-20 px-4 bg-juku-bg relative">
+    <div class="absolute top-0 left-0 w-full h-full bg-stripe opacity-50 pointer-events-none"></div>
+    
+    <div class="max-w-5xl mx-auto relative z-10">
+      <header class="text-center mb-16">
+        <h2 class="text-3xl md:text-4xl font-bold text-juku-primary mb-6">
           変化の激しい時代に、<br class="md:hidden" />“今、何を学ぶか”で未来は変わる。
         </h2>
-        <p class="text-lg text-base-content/80 leading-relaxed">
-          AI・データ・情報活用力。学校だけでは触れにくい“実践”を、楽しく、やさしく、続けられる形で。
+        <p class="text-lg text-gray-600 max-w-3xl mx-auto">
+          AI・データ・情報活用力。学校だけでは触れにくい“実践”を、楽しく、やさしく、続けられる形で提供します。
         </p>
       </header>
 
-      <!-- 共感（悩み）カード -->
-      <div class="space-y-4">
-        <h3 class="text-xl font-semibold text-center">こんな悩み、ありませんか？</h3>
-        <div class="grid gap-4 md:grid-cols-3">
-          <div class="card bg-base-200 shadow-sm">
-            <div class="card-body">
-              <div class="flex items-start gap-3">
-                <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6 shrink-0" fill="none" viewBox="0 0 24 24"
-                  stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 18h.01M12 14a4 4 0 10-4-4h.01M12 14v2" />
-                </svg>
-                <div>
-                  <h4 class="font-bold mb-1">何から始めればいい？</h4>
-                  <p class="text-sm opacity-80">環境づくり・教材選びでつまずきがち…</p>
+      <div class="bg-white rounded-2xl p-8 shadow-sm border border-gray-200 mb-12">
+          <h3 class="text-center text-xl font-bold text-gray-700 mb-8">こんなお悩みありませんか？</h3>
+          <div class="grid gap-6 md:grid-cols-3">
+            <div class="flex flex-col items-center text-center">
+                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3 text-gray-400">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
                 </div>
-              </div>
+                <h4 class="font-bold text-gray-800 mb-1">何から始めればいい？</h4>
+                <p class="text-sm text-gray-500">環境づくり・教材選びでつまずきがち…</p>
+            </div>
+            <div class="flex flex-col items-center text-center">
+                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3 text-gray-400">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4m0 4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"></path></svg>
+                </div>
+                <h4 class="font-bold text-gray-800 mb-1">続かない・難しい</h4>
+                <p class="text-sm text-gray-500">独学だと“おもしろい”が続かない…</p>
+            </div>
+            <div class="flex flex-col items-center text-center">
+                <div class="w-12 h-12 bg-gray-100 rounded-full flex items-center justify-center mb-3 text-gray-400">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"></path></svg>
+                </div>
+                <h4 class="font-bold text-gray-800 mb-1">実力が見えにくい</h4>
+                <p class="text-sm text-gray-500">“できた！”が見える評価がほしい</p>
             </div>
           </div>
-          <div class="card bg-base-200 shadow-sm">
-            <div class="card-body">
-              <div class="flex items-start gap-3">
-                <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 18h.01M12 14a4 4 0 10-4-4h.01M12 14v2" />
-                </svg>
-                <div>
-                  <h4 class="font-bold mb-1">続かない・難しく感じる</h4>
-                  <p class="text-sm opacity-80">独学だと“おもしろい”が続かない…</p>
-                </div>
-              </div>
+      </div>
+
+      <div class="grid md:grid-cols-2 gap-8 items-stretch">
+        
+        <div class="bg-gray-100 rounded-xl p-6 border border-gray-200 relative">
+            <div class="absolute -top-3 left-6 bg-gray-500 text-white text-xs font-bold px-3 py-1 rounded-full">Before</div>
+            <h3 class="text-lg font-bold text-gray-700 mt-2 mb-4">独学や一般的な教室</h3>
+            <ul class="space-y-3 text-gray-600 text-sm">
+                <li class="flex items-start"><span class="text-gray-400 mr-2">●</span>テキスト中心で実感が沸かない</li>
+                <li class="flex items-start"><span class="text-gray-400 mr-2">●</span>質問できずに先へ進めない</li>
+                <li class="flex items-start"><span class="text-gray-400 mr-2">●</span>作って終わりで振り返りがない</li>
+            </ul>
+        </div>
+
+        <div class="bg-white rounded-xl p-6 border-2 border-juku-primary shadow-xl relative transform md:-translate-y-2">
+            <div class="absolute -top-4 left-6 bg-juku-primary text-white text-sm font-bold px-4 py-1 rounded-full shadow-md">ひびきラボなら (After)</div>
+            <h3 class="text-xl font-bold text-juku-primary mt-4 mb-4">主体的に学び、成果が見える</h3>
+            <ul class="space-y-4 text-gray-700 font-medium">
+                <li class="flex items-start">
+                    <svg class="w-5 h-5 text-juku-secondary mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>対話型で「なぜ？」を一緒に掘り下げる</span>
+                </li>
+                <li class="flex items-start">
+                    <svg class="w-5 h-5 text-juku-secondary mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>小さな作品→発表→フィードバックの循環</span>
+                </li>
+                <li class="flex items-start">
+                    <svg class="w-5 h-5 text-juku-secondary mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                    <span>進捗が見える個別プランと宿題サポート</span>
+                </li>
+            </ul>
+            <div class="mt-6 text-center">
+                <a href="https://docs.google.com/forms/d/e/1FAIpQLSdqQSK95lODGBjUxacuHQRABH8hCbJMrEXn24g7zC5JjpAsiA/viewform?usp=header" 
+                   class="btn bg-juku-primary hover:bg-indigo-800 text-white btn-sm w-full">
+                   まずは無料体験で違いを実感
+                </a>
             </div>
-          </div>
-          <div class="card bg-base-200 shadow-sm">
-            <div class="card-body">
-              <div class="flex items-start gap-3">
-                <svg class="w-6 h-6 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor">
-                  <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M12 18h.01M12 14a4 4 0 10-4-4h.01M12 14v2" />
-                </svg>
-                <div>
-                  <h4 class="font-bold mb-1">実力が見えにくい</h4>
-                  <p class="text-sm opacity-80">“できた！”が見える評価・作品づくりがしたい</p>
-                </div>
-              </div>
-            </div>
-          </div>
         </div>
       </div>
 
-      <!-- 改良版：解決（Before / After） -->
-      <div class="grid gap-6 md:grid-cols-2 items-stretch">
-        <!-- BEFORE -->
-        <article class="card bg-base-100 border border-base-200 rounded-lg shadow-sm p-6 flex flex-col justify-between">
-          <header class="flex items-start gap-4">
-            <!-- デコアイコン（問題） -->
-            <div class="flex items-center justify-center w-12 h-12 rounded-full bg-gray-100 text-gray-700 shrink-0"
-              aria-hidden="true">
-              <!-- X icon -->
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </div>
-
-            <div>
-              <span class="badge badge-ghost">Before</span>
-              <h3 class="mt-2 text-lg font-bold text-gray-800">学習が続かない・成果が見えにくい</h3>
-              <p class="mt-1 text-sm text-gray-500">よくあるつまずき（観察に基づく代表例）</p>
-            </div>
-          </header>
-
-          <ul class="mt-4 list-inside space-y-3 text-sm text-gray-700 leading-relaxed">
-            <li class="flex items-start gap-3">
-              <!-- bullet icon -->
-              <svg class="w-5 h-5 shrink-0 mt-0.5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor">
-                <circle cx="12" cy="12" r="3" stroke-width="1.5" />
-              </svg>
-              <span>テキスト中心で実感が沸かない</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 shrink-0 mt-0.5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor">
-                <circle cx="12" cy="12" r="3" stroke-width="1.5" />
-              </svg>
-              <span>質問できずに先へ進めない</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 shrink-0 mt-0.5 text-gray-400" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor">
-                <circle cx="12" cy="12" r="3" stroke-width="1.5" />
-              </svg>
-              <span>作って終わりで振り返りがない</span>
-            </li>
-          </ul>
-
-          <p class="mt-6 text-xs text-gray-400">※上は典型的な Before 例です（保護者・生徒の声を元に要約）。</p>
-        </article>
-
-        <!-- AFTER -->
-        <article class="card bg-base-100 border border-base-200 rounded-lg shadow-sm p-6 flex flex-col justify-between">
-          <header class="flex items-start gap-4">
-            <!-- デコアイコン（解決） -->
-            <div
-              class="flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 text-primary shrink-0"
-              aria-hidden="true">
-              <!-- Check icon -->
-              <svg xmlns="http://www.w3.org/2000/svg" class="w-6 h-6" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor" stroke-width="2">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M5 13l4 4L19 7" />
-              </svg>
-            </div>
-
-            <div>
-              <span class="badge badge-primary text-primary-content">After（本教室）</span>
-              <h3 class="mt-2 text-lg font-bold text-gray-800">主体的に学び、成果が見える</h3>
-              <p class="mt-1 text-sm text-gray-500">具体的に変わるポイント</p>
-            </div>
-          </header>
-
-          <ul class="mt-4 list-inside space-y-3 text-sm text-gray-700 leading-relaxed">
-            <li class="flex items-start gap-3">
-              <!-- success icon -->
-              <svg class="w-5 h-5 shrink-0 mt-0.5 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              <span>対話型で「なぜ？」を一緒に掘り下げる</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 shrink-0 mt-0.5 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              <span>小さな作品→発表→フィードバックの循環で定着</span>
-            </li>
-            <li class="flex items-start gap-3">
-              <svg class="w-5 h-5 shrink-0 mt-0.5 text-green-500" xmlns="http://www.w3.org/2000/svg" fill="none"
-                viewBox="0 0 24 24" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7" />
-              </svg>
-              <span>進捗が見える個別プランと宿題サポート</span>
-            </li>
-          </ul>
-
-          <!-- CTA と補助情報：行動に繋げる -->
-          <div class="mt-6 flex items-center justify-between gap-4">
-            <a href="https://docs.google.com/forms/d/e/1FAIpQLSdqQSK95lODGBjUxacuHQRABH8hCbJMrEXn24g7zC5JjpAsiA/viewform?usp=header"
-              class="btn btn-primary btn-sm">✅ 無料体験を申し込む</a>
-            <p class="text-xs text-gray-500">所要 50分 / 保護者の同伴可</p>
-          </div>
-        </article>
-      </div>
-
-
-      <!-- 学びの流れ（Steps） -->
-      <div class="space-y-4">
-        <h3 class="text-xl font-semibold text-center">学びの流れ</h3>
+      <div class="mt-16">
+        <h3 class="text-xl font-bold text-center mb-8 text-gray-700">学びのステップ</h3>
         <ul class="steps steps-vertical md:steps-horizontal w-full">
-          <li class="step step-primary">無料体験</li>
-          <li class="step step-primary">目標すり合わせ</li>
-          <li class="step step-primary">学習開始</li>
-          <li class="step">“好き”が”夢中”に</li>
+            <li class="step step-primary" data-content="1">無料体験</li>
+            <li class="step step-primary" data-content="2">目標設定</li>
+            <li class="step step-primary" data-content="3">学習開始</li>
+            <li class="step step-neutral" data-content="4">“好き”が”夢中”に</li>
         </ul>
       </div>
 
-      <!-- 保護者の声 -->
-      <div class="card bg-base-200 shadow-sm">
-        <div class="card-body md:flex md:items-center md:gap-6">
-          <div class="avatar hidden md:inline-flex">
-            <div class="w-16 rounded-full ring ring-primary/30">
-              <img src="https://placehold.jp/80x80.png" alt="voice">
+      <div class="mt-12 bg-white p-6 rounded-lg shadow-md border-l-4 border-juku-secondary flex flex-col md:flex-row gap-6 items-center">
+        <div class="flex-shrink-0">
+            <div class="w-16 h-16 rounded-full bg-gray-200 overflow-hidden">
+                <img src="imgs/parent/cmt.png" alt="Voice" class="w-full h-full object-cover opacity-70">
             </div>
-          </div>
-          <blockquote class="text-base leading-relaxed">
-            <span class="font-semibold">保護者の声：</span>
-            「最初はゲーム好きなだけでしたが、いまは“こう動かすにはどう書く？”と
-            自分で調べて作れるようになりました。失敗しても楽しんで挑戦しています。」
-          </blockquote>
         </div>
-      </div>
-
-      <!-- ミニCTA -->
-      <div class="text-center">
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdqQSK95lODGBjUxacuHQRABH8hCbJMrEXn24g7zC5JjpAsiA/viewform?usp=header"
-          class="btn btn-primary btn-wide">✅ 無料体験で雰囲気を知る</a>
-        <p class="text-xs opacity-70 mt-2">所要 50分/保護者の同伴可</p>
+        <blockquote class="italic text-gray-600">
+            <span class="block font-bold text-gray-800 not-italic mb-2">保護者の声：</span>
+            「最初はゲーム好きなだけでしたが、いまは“こう動かすにはどう書く？”と自分で調べて作れるようになりました。失敗しても楽しんで挑戦しています。」
+        </blockquote>
       </div>
 
     </div>
   </section>
 
 
-  <!-- 🟩 講座紹介 -->
-  <section class="py-16 px-6 bg-base-100">
-    <div class="max-w-3xl mx-auto text-center">
-      <h2 class="text-3xl font-bold mb-6">“はじめてのPython”を、やさしく、たのしく、しっかり学ぶ。</h2>
-      <p class="mb-8">私たちの教室では、小学校高学年から高校生までを対象に、<strong>Pythonを基礎からていねいに学べる講座</strong>を開講しています。</p>
-      <div class="grid gap-6 md:grid-cols-3">
-        <div class="card bg-base-200 p-6 shadow-md">
-          <h3 class="font-bold mb-2">🎓 現役大学生講師</h3>
-          <p>大学で学ぶ知識を活かし、やさしく丁寧に指導します。</p>
-        </div>
-        <div class="card bg-base-200 p-6 shadow-md">
-          <h3 class="font-bold mb-2">👥 個別対応</h3>
-          <p>一人ひとりのペースに合わせて学習をサポート。</p>
-        </div>
-        <div class="card bg-base-200 p-6 shadow-md">
-          <h3 class="font-bold mb-2">💡 対話型授業</h3>
-          <p>「なぜ？」を大切にし、自分で考える力を育みます。</p>
-        </div>
-      </div>
-    </div>
-  </section>
-
-
-  <!-- 🟨 カリキュラム紹介 -->
-  <section class="py-16 px-6 bg-white">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-4xl font-extrabold text-center mb-10 text-gray-800">
-        カリキュラム紹介
+  <section class="py-20 px-4 bg-white">
+    <div class="max-w-4xl mx-auto text-center">
+      <span class="text-juku-secondary font-bold tracking-widest uppercase text-sm">Feature</span>
+      <h2 class="text-3xl font-bold mt-2 mb-10 text-juku-primary">
+        “はじめてのPython”を、<br>やさしく、たのしく、しっかり学ぶ。
       </h2>
-
-      <div class="overflow-x-auto">
-        <table class="table w-full border border-gray-200">
-          <tbody class="[&>tr:nth-child(odd)]:bg-gray-50">
-            <!-- row 1 -->
-            <tr class="hover:bg-gray-100 transition">
-              <td class="w-1/4 align-top font-bold text-lg text-gray-800">
-                Python入門
-                <span class="ml-2 badge badge-primary text-sm font-semibold">必修</span>
-              </td>
-              <td class="leading-relaxed text-gray-700">
-                <strong class="text-indigo-600">はじめてのプログラミング体験</strong>として、
-                パソコン操作やタイピングからスタート。<br><br>
-                <span class="font-semibold text-indigo-600">
-                  「順番に命令を並べるとコンピューターが動く」
-                </span>
-                という基本を体感しながら、Pythonを使って簡単なプログラムを作ります。<br><br>
-                <span class="badge badge-outline font-semibold">基礎</span>
-              </td>
-              <td class="w-24 text-center font-bold text-gray-800">
-                半年<br>～<br>1年
-              </td>
-            </tr>
-
-            <!-- row 2 -->
-            <tr class="hover:bg-gray-100 transition">
-              <td class="w-1/4 align-top font-bold text-lg text-gray-800">
-                Web開発基礎
-                <span class="ml-2 badge badge-secondary text-sm font-semibold">選択</span>
-              </td>
-              <td class="leading-relaxed text-gray-700">
-                <strong class="text-indigo-600">身近な「Webサイト」を自分で作ってみるコースです。</strong><br><br>
-                プログラミングの知識が少し増えたら、Pythonを使って
-                簡単なアプリを画面に表示する体験をします。<br><br>
-                自分の作ったものがパソコン上で動く達成感を味わえます。<br>
-                <span class="badge badge-outline font-semibold">中級</span>
-              </td>
-              <td class="w-24 text-center font-bold text-gray-800">
-                半年
-              </td>
-            </tr>
-
-            <!-- row 3 -->
-            <tr class="hover:bg-gray-100 transition">
-              <td class="w-1/4 align-top font-bold text-lg text-gray-800">
-                ビジュアルデザイン
-                <span class="ml-2 badge badge-secondary text-sm font-semibold">選択</span>
-              </td>
-              <td class="leading-relaxed text-gray-700">
-                <strong class="text-indigo-600">ゲーム好きのお子さまに人気のコースです。</strong><br><br>
-                Pythonで、2Dデザインやキャラクターが動いたり音が鳴ったりする2Dゲームを作ります。<br><br>
-                遊びながら試行錯誤し、 <strong class="text-indigo-600">論理的思考力やデザイン力</strong>を育てます。<br>
-                <span class="badge badge-outline font-semibold">やや上級</span>
-              </td>
-              <td class="w-24 text-center font-bold text-gray-800">
-                半年
-              </td>
-            </tr>
-
-            <!-- row 4 -->
-            <tr class="hover:bg-gray-100 transition">
-              <td class="w-1/4 align-top font-bold text-lg text-gray-800">
-                競技プログラミング<br>・アルゴリズム
-                <span class="ml-2 badge badge-secondary text-sm font-semibold">選択</span>
-              </td>
-              <td class="leading-relaxed text-gray-700">
-                <strong class="text-indigo-600">パズルや謎解きのような課題</strong>に挑戦しながら、
-                数学的思考力や問題解決力を伸ばします。<br><br>
-                将来の<strong class="text-indigo-600">受験やIT分野の学び</strong>にもつながる力を育みます。<br>
-                <span class="badge badge-outline font-semibold">やや上級</span>
-              </td>
-              <td class="w-24 text-center font-bold text-gray-800">
-                1年
-              </td>
-            </tr>
-          </tbody>
-        </table>
-
-        <!-- 🔶 その他コース案内（デザイン付き） -->
-        <div class="mt-10 text-center">
-          <div
-            class="max-w-2xl mx-auto p-6 rounded-2xl shadow-md bg-gradient-to-br from-yellow-50 to-yellow-100 border border-yellow-200">
-            <h3 class="text-2xl font-bold text-yellow-700 mb-2">
-              その他、数多くのコースをご用意しております
-            </h3>
-            <p class="text-yellow-800 text-sm">
-              お子様の興味に合わせて、初級講座を多数ご準備しています。
-            </p>
+      <p class="text-gray-600 mb-12 leading-relaxed">
+        私たちの教室では、小学校高学年から高校生までを対象に、<br class="hidden md:block">
+        <strong>Pythonを基礎からていねいに学べる講座</strong>を開講しています。
+      </p>
+      
+      <div class="grid gap-6 md:grid-cols-3 text-left">
+        <div class="card bg-juku-bg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+          <div class="card-body p-6">
+            <div class="text-3xl mb-2">🎓</div>
+            <h3 class="font-bold text-lg text-gray-800 mb-2">現役大学生講師</h3>
+            <p class="text-sm text-gray-600">大学で学ぶ最新の知識を活かし、お兄さん・お姉さんのような距離感で丁寧に指導します。</p>
           </div>
         </div>
-
-
-      </div>
-    </div>
-  </section>
-
-
-
-  <!-- 🟧 講師紹介 -->
-  <section class="py-16 px-6 bg-base-100">
-    <div class="max-w-3xl mx-auto">
-      <h2 class="text-3xl font-bold mb-6 text-center">「学びの伴走者は、現役大学生の先輩たち」</h2>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="card bg-base-200 p-6 shadow-md">
-          <h3 class="font-bold mb-2">🎓 情報系の現役大学生</h3>
-          <p>
-            本教室の指導教員は全員情報系の現役大学生・院生です。
-            小学生にも分かりやすい言葉で、やさしく指導します。
-          </p>
+        <div class="card bg-juku-bg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+          <div class="card-body p-6">
+            <div class="text-3xl mb-2">👥</div>
+            <h3 class="font-bold text-lg text-gray-800 mb-2">個別対応</h3>
+            <p class="text-sm text-gray-600">集団授業ではありません。一人ひとりのペースに合わせて学習をサポートします。</p>
+          </div>
         </div>
-        <div class="card bg-base-200 p-6 shadow-md">
-          <h3 class="font-bold mb-2">🤝 伴走型指導</h3>
-          <p>「正解を教える」のではなく、「考え方を導く」スタイル。</p>
+        <div class="card bg-juku-bg border border-gray-100 shadow-sm hover:shadow-md transition-shadow">
+          <div class="card-body p-6">
+            <div class="text-3xl mb-2">💡</div>
+            <h3 class="font-bold text-lg text-gray-800 mb-2">対話型授業</h3>
+            <p class="text-sm text-gray-600">ただ教えるのではなく「なぜ？」を大切にし、自分で考える力を育みます。</p>
+          </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- 🟫 講座情報 -->
-  <section class="py-16 px-6 bg-white">
-    <div class="max-w-3xl mx-auto">
-      <h2 class="text-3xl font-bold mb-6 text-center">講座情報</h2>
-      <div class="overflow-x-auto">
-        <table class="table table-zebra w-full">
-          <tbody>
-            <tr>
-              <th>対象</th>
-              <td>小学校高学年〜高校生</td>
-            </tr>
-            <tr>
-              <th>回数</th>
-              <td>50分×月4回（週1回ペース）</td>
-            </tr>
-            <tr>
-              <th>料金</th>
-              <td>月額9,900円（税込）</td>
-            </tr>
-          </tbody>
-        </table>
+
+<section id="curriculum" class="py-20 px-4 bg-gray-50 border-t border-gray-200">
+  <div class="max-w-5xl mx-auto">
+    <h2 class="text-3xl md:text-4xl font-bold text-center mb-12 text-juku-primary flex items-center justify-center gap-3">
+      <span class="w-2 h-8 bg-juku-secondary rounded-sm"></span>
+      カリキュラム紹介
+    </h2>
+
+    <div class="overflow-hidden rounded-lg shadow-lg border border-gray-200 bg-white">
+      <table class="table w-full">
+        <thead class="bg-juku-primary text-white">
+          <tr class="text-left">
+            <th class="py-4 px-6 text-base w-1/3">コース名</th>
+            <th class="py-4 px-6 text-base w-2/3">学習内容・目安期間</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          <tr class="hover:bg-blue-50 transition-colors">
+            <td class="px-6 py-6 align-top">
+              <div class="font-bold text-lg text-gray-800">Python入門</div>
+              <span class="badge bg-juku-secondary text-white border-none mt-2">必修</span>
+              <p class="text-sm font-bold text-gray-500 mt-2">目安期間：半年～1年</p>
+            </td>
+            <td class="px-6 py-6 align-top">
+              <p class="text-gray-700 leading-relaxed mb-2">
+                <strong class="text-juku-primary">はじめてのプログラミング体験</strong>として、パソコン操作やタイピングからスタートします。
+              </p>
+              <p class="text-sm text-gray-600">
+                「順番に命令を並べるとコンピューターが動く」という基本を体感しながら、Pythonを使って簡単なプログラムを作ります。
+              </p>
+            </td>
+          </tr>
+
+          <tr class="hover:bg-blue-50 transition-colors">
+            <td class="px-6 py-6 align-top">
+              <div class="font-bold text-lg text-gray-800">Web開発基礎</div>
+              <span class="badge badge-ghost border-gray-300 text-gray-500 mt-2">選択</span>
+              <p class="text-sm font-bold text-gray-500 mt-2">目安期間：半年</p>
+            </td>
+            <td class="px-6 py-6 align-top">
+              <p class="text-gray-700 leading-relaxed mb-2">
+                <strong class="text-juku-primary">身近な「Webサイト」を自分で作ってみるコース</strong>です。
+              </p>
+              <p class="text-sm text-gray-600">
+                プログラミングの知識が少し増えたら、Pythonを使って簡単なアプリを画面に表示する体験をします。
+              </p>
+            </td>
+          </tr>
+
+          <tr class="hover:bg-blue-50 transition-colors">
+            <td class="px-6 py-6 align-top">
+              <div class="font-bold text-lg text-gray-800">ビジュアル<br>デザイン</div>
+              <span class="badge badge-ghost border-gray-300 text-gray-500 mt-2">選択</span>
+              <p class="text-sm font-bold text-gray-500 mt-2">目安期間：半年</p>
+            </td>
+            <td class="px-6 py-6 align-top">
+              <p class="text-gray-700 leading-relaxed mb-2">
+                <strong class="text-juku-primary">ゲーム好きのお子さまに人気のコース</strong>です。
+              </p>
+              <p class="text-sm text-gray-600">
+                Pythonで、2Dデザインやキャラクターが動いたり音が鳴ったりする2Dゲームを作ります。遊びながら論理的思考力を育てます。
+              </p>
+            </td>
+          </tr>
+
+          <tr class="hover:bg-blue-50 transition-colors">
+            <td class="px-6 py-6 align-top">
+              <div class="font-bold text-lg text-gray-800">競技プログラミング<br>アルゴリズム</div>
+              <span class="badge badge-ghost border-gray-300 text-gray-500 mt-2">選択</span>
+              <p class="text-sm font-bold text-gray-500 mt-2">目安期間：1年</p>
+            </td>
+            <td class="px-6 py-6 align-top">
+              <p class="text-gray-700 leading-relaxed mb-2">
+                <strong class="text-juku-primary">パズルや謎解きのような課題</strong>に挑戦します。
+              </p>
+              <p class="text-sm text-gray-600">
+                数学的思考力や問題解決力を伸ばします。将来の受験やIT分野の学びにもつながる力を育みます。
+              </p>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-10 text-center">
+      <div class="inline-block bg-yellow-50 border border-yellow-200 rounded-xl p-6 shadow-sm">
+        <h3 class="text-xl font-bold text-yellow-800 mb-2">その他、数多くのコースをご用意しております</h3>
+        <p class="text-yellow-700 text-sm">お子様の興味に合わせて、初級講座を多数ご準備しています。</p>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
-  <section class="py-16 px-6 bg-white">
-    <div class="max-w-5xl mx-auto">
-      <h2 class="text-3xl font-bold mb-6 text-center">在籍講師情報</h2>
 
-      <!-- 横並びにする -->
-      <div class="flex flex-wrap justify-center gap-6">
-        <div class="card bg-base-100 w-80 shadow-sm">
-          <figure>
-            <img src="imgs/teachers/teacher_sato.jpeg" alt="Shoes" />
+  <section class="py-20 px-4 bg-white">
+    <div class="max-w-6xl mx-auto">
+        <div class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-juku-primary mb-4">在籍講師情報</h2>
+            <p class="text-gray-600">「学びの伴走者は、現役大学生の先輩たち」</p>
+        </div>
+
+      <div class="flex flex-wrap justify-center gap-8">
+        
+        <div class="card bg-white w-80 shadow-lg border border-gray-100 hover:-translate-y-1 transition-transform duration-300">
+          <figure class="px-6 pt-6">
+            <div class="avatar">
+                <div class="w-24 rounded-full ring ring-juku-primary ring-offset-base-100 ring-offset-2">
+                  <img src="imgs/teachers/teacher_sato.jpeg" alt="佐藤" />
+                </div>
+            </div>
           </figure>
-          <div class="card-body">
-            <h2 class="card-title">
+          <div class="card-body items-center text-center">
+            <h2 class="card-title text-gray-800">
               佐藤 正淳
-              <div class="badge badge-secondary">塾長</div>
+              <div class="badge bg-juku-primary text-white border-none">塾長</div>
             </h2>
-            <p>教室の運営を行う傍ら、生徒たちとのコミュニケーションを通じて、教室運営を円滑に行うサポートをしています。塾での指導経験もあり。</p>
-            <div class="card-actions justify-end">
-              <div class="badge badge-outline">塾長</div>
-            </div>
+            <p class="text-sm text-gray-600 mt-2">教室の運営を行う傍ら、生徒たちとのコミュニケーションを通じて、教室運営を円滑に行うサポートをしています。塾での指導経験もあり。</p>
           </div>
         </div>
 
-        
-        <div class="card bg-base-100 w-80 shadow-sm">
-          <figure>
-            <img src="imgs/teachers/teacher_shisei.png" alt="Shoes" />
-          </figure>
-          <div class="card-body">
-            <h2 class="card-title">
-              しせい
-              <div class="badge badge-secondary">講師</div>
-            </h2>
-            <p>『プログラミングの“面白さ”を一人でも多くの人に伝えたい』その思いを胸に、熱意をもって日々指導に臨んでいます。生徒の得意なこと、興味のあることを踏まえて、ひとりひとりに合ったサポートをしています。</p>
-            <div class="card-actions justify-end">
-              <div class="badge badge-outline">大学院生</div>
-              <!-- <div class="badge badge-outline">Products</div> -->
+        <div class="card bg-white w-80 shadow-lg border border-gray-100 hover:-translate-y-1 transition-transform duration-300">
+            <figure class="px-6 pt-6">
+              <div class="avatar">
+                  <div class="w-24 rounded-full ring ring-gray-200 ring-offset-base-100 ring-offset-2">
+                    <img src="imgs/teachers/teacher_shisei.png" alt="講師" />
+                  </div>
+              </div>
+            </figure>
+            <div class="card-body items-center text-center">
+              <h2 class="card-title text-gray-800">
+                しせい
+                <div class="badge badge-outline text-gray-500">講師</div>
+              </h2>
+              <p class="text-sm text-gray-600 mt-2">『プログラミングの“面白さ”を一人でも多くの人に伝えたい』その思いを胸に、熱意をもって日々指導に臨んでいます。</p>
+              <div class="badge bg-gray-100 border-none text-xs">大学院生</div>
             </div>
-          </div>
-        </div>
-        
-        <div class="card bg-base-100 w-80 shadow-sm">
-          <figure>
-            <img src="imgs/teachers/teacher_momoka.jpeg" alt="Shoes" />
-          </figure>
-          <div class="card-body">
-            <h2 class="card-title">
-              ももか
-              <div class="badge badge-secondary">講師</div>
-            </h2>
-            <p>2019年から某大手塾で講師を担当。現在は当教室で生徒の勉強面でのサポートをしています。楽しく、学習力をつけることができるように心がけています。</p>
-            <div class="card-actions justify-end">
-              <div class="badge badge-outline">大学院生</div>
-              <!-- <div class="badge badge-outline">Products</div> -->
-            </div>
-          </div>
         </div>
 
-
-        <div class="card bg-base-100 w-80 shadow-sm">
-          <figure>
-            <img src="imgs/teachers/teacher_soma.png" alt="Shoes" />
-          </figure>
-          <div class="card-body">
-            <h2 class="card-title">
-              そうま
-              <div class="badge badge-secondary">講師</div>
-            </h2>
-            <p>ロボット制御を専門としている先生、ロボット業界で多くの賞を獲得しています。</p>
-            <div class="card-actions justify-end">
-              <div class="badge badge-outline">大学院生</div>
-              <!-- <div class="badge badge-outline"></div> -->
+        <div class="card bg-white w-80 shadow-lg border border-gray-100 hover:-translate-y-1 transition-transform duration-300">
+            <figure class="px-6 pt-6">
+              <div class="avatar">
+                  <div class="w-24 rounded-full ring ring-gray-200 ring-offset-base-100 ring-offset-2">
+                    <img src="imgs/teachers/teacher_momoka.jpeg" alt="講師" />
+                  </div>
+              </div>
+            </figure>
+            <div class="card-body items-center text-center">
+              <h2 class="card-title text-gray-800">
+                ももか
+                <div class="badge badge-outline text-gray-500">講師</div>
+              </h2>
+              <p class="text-sm text-gray-600 mt-2">2019年から某大手塾で講師を担当。現在は当教室で生徒の勉強面でのサポートをしています。楽しく、学習力をつけるように心がけています。</p>
+              <div class="badge bg-gray-100 border-none text-xs">大学院生</div>
             </div>
-          </div>
+        </div>
+
+        <div class="card bg-white w-80 shadow-lg border border-gray-100 hover:-translate-y-1 transition-transform duration-300">
+            <figure class="px-6 pt-6">
+              <div class="avatar">
+                  <div class="w-24 rounded-full ring ring-gray-200 ring-offset-base-100 ring-offset-2">
+                    <img src="imgs/teachers/teacher_soma.png" alt="講師" />
+                  </div>
+              </div>
+            </figure>
+            <div class="card-body items-center text-center">
+              <h2 class="card-title text-gray-800">
+                そうま
+                <div class="badge badge-outline text-gray-500">講師</div>
+              </h2>
+              <p class="text-sm text-gray-600 mt-2">ロボット制御を専門としている先生、ロボット業界で多くの賞を獲得しています。</p>
+              <div class="badge bg-gray-100 border-none text-xs">大学院生</div>
+            </div>
         </div>
 
       </div>
     </div>
   </section>
 
-  <!-- 🟪 CTA -->
-  <section id="cta" class="py-20 bg-yellow-200 text-black text-center">
-    <h2 class="text-3xl font-bold mb-6">まずは無料体験で<br>“好き”を見つけよう</h2>
-    <a href="https://docs.google.com/forms/d/e/1FAIpQLSdqQSK95lODGBjUxacuHQRABH8hCbJMrEXn24g7zC5JjpAsiA/viewform?usp=header"
-       class="inline-block bg-gradient-to-br from-yellow-800 via-yellow-500 to-yellow-600 text-white font-bold rounded-full px-8 py-3 shadow-2xl transform transition-all duration-200 hover:scale-105 ring-4 ring-yellow-300/30 hover:ring-yellow-400 animate-pulse"
-       aria-label="無料体験に申し込む">
-      🌟 無料体験に申し込む
-    </a>
+  <section class="py-16 px-4 bg-juku-bg">
+    <div class="max-w-3xl mx-auto">
+      <h2 class="text-2xl font-bold mb-8 text-center text-gray-800">募集要項</h2>
+      <div class="bg-white rounded-lg shadow overflow-hidden border border-gray-200">
+        <table class="table w-full">
+          <tbody class="divide-y divide-gray-100">
+            <tr>
+              <th class="bg-gray-50 w-1/3 text-gray-600 font-medium py-4 px-6">対象</th>
+              <td class="py-4 px-6 font-bold text-gray-800">小学校高学年 〜 高校生</td>
+            </tr>
+            <tr>
+              <th class="bg-gray-50 text-gray-600 font-medium py-4 px-6">授業回数</th>
+              <td class="py-4 px-6 text-gray-800">50分 × 月4回（週1回ペース）</td>
+            </tr>
+            <tr>
+              <th class="bg-gray-50 text-gray-600 font-medium py-4 px-6">料金</th>
+              <td class="py-4 px-6 text-lg text-juku-primary font-bold">月額 9,900円<span class="text-sm font-normal text-gray-500 ml-1">（税込）</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
   </section>
+
+  <section id="cta" class="py-24 bg-gradient-to-br from-juku-primary to-indigo-800 text-white text-center relative overflow-hidden">
+    <div class="absolute top-0 left-0 w-full h-full opacity-10 bg-[url('https://www.transparenttextures.com/patterns/cubes.png')]"></div>
+    
+    <div class="relative z-10 max-w-3xl mx-auto px-6">
+        <h2 class="text-3xl md:text-4xl font-bold mb-8 leading-tight">
+            まずは無料体験で<br>
+            “好き”を見つけよう
+        </h2>
+        <p class="mb-10 text-indigo-100 text-lg">
+            パソコンに触ったことがなくても大丈夫。<br>
+            お気軽にお申し込みください。
+        </p>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdqQSK95lODGBjUxacuHQRABH8hCbJMrEXn24g7zC5JjpAsiA/viewform?usp=header"
+           class="btn bg-juku-secondary hover:bg-yellow-500 text-white border-none btn-lg rounded-full px-12 shadow-2xl transform hover:scale-105 transition-all duration-200 text-xl font-bold">
+           🌟 無料体験に申し込む
+        </a>
+        <p class="mt-4 text-sm text-indigo-200 opacity-80">所要時間: 50分 / 保護者様の同伴可</p>
+    </div>
+  </section>
+
+  <footer class="footer p-10 bg-gray-800 text-gray-300">
+    <aside>
+      <div class="font-bold text-2xl text-white mb-2">ひびきラボ</div>
+      <p>
+        ひびきラボ合同会社<br />
+        Providing reliable tech since 2016
+      </p>
+      <p class="text-sm mt-4 text-gray-500">© 2025 Hibiki Lab. All rights reserved.</p>
+    </aside>
+    <nav>
+      <h6 class="footer-title text-gray-400">Menu</h6>
+      <a href="#hero" class="link link-hover">トップ</a>
+      <a href="#curriculum" class="link link-hover">カリキュラム</a>
+      <a href="https://docs.google.com/forms/d/e/1FAIpQLSdqQSK95lODGBjUxacuHQRABH8hCbJMrEXn24g7zC5JjpAsiA/viewform?usp=header" class="link link-hover">お問い合わせ</a>
+    </nav>
+  </footer>
 
 </body>
-
-<footer class="footer sm:footer-horizontal bg-neutral text-neutral-content p-10">
-  <aside>
-    <svg width="50" height="50" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" fill-rule="evenodd"
-      clip-rule="evenodd" class="fill-current">
-      <path
-        d="M22.672 15.226l-2.432.811.841 2.515c.33 1.019-.209 2.127-1.23 2.456-1.15.325-2.148-.321-2.463-1.226l-.84-2.518-5.013 1.677.84 2.517c.391 1.203-.434 2.542-1.831 2.542-.88 0-1.601-.564-1.86-1.314l-.842-2.516-2.431.809c-1.135.328-2.145-.317-2.463-1.229-.329-1.018.211-2.127 1.231-2.456l2.432-.809-1.621-4.823-2.432.808c-1.355.384-2.558-.59-2.558-1.839 0-.817.509-1.582 1.327-1.846l2.433-.809-.842-2.515c-.33-1.02.211-2.129 1.232-2.458 1.02-.329 2.13.209 2.461 1.229l.842 2.515 5.011-1.677-.839-2.517c-.403-1.238.484-2.553 1.843-2.553.819 0 1.585.509 1.85 1.326l.841 2.517 2.431-.81c1.02-.33 2.131.211 2.461 1.229.332 1.018-.21 2.126-1.23 2.456l-2.433.809 1.622 4.823 2.433-.809c1.242-.401 2.557.484 2.557 1.838 0 .819-.51 1.583-1.328 1.847m-8.992-6.428l-5.01 1.675 1.619 4.828 5.011-1.674-1.62-4.829z">
-      </path>
-    </svg>
-    <p>
-      ひびきラボ合同会社
-      <br />
-      Providing reliable tech since 2016
-    </p>
-  </aside>
-</footer>
 </html>
