@@ -11,6 +11,7 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="icon" href="imgs/favicon.webp" type="image/webp">
   <link
     href="https://fonts.googleapis.com/css2?family=RocknRoll+One&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap"
     rel="stylesheet">
@@ -67,25 +68,31 @@
 
 <body class="antialiased">
 
-  <div class="navbar bg-white shadow-md sticky top-0 z-50 border-b border-brand-orange/30">
-    <div class="flex-1">
-      <a class="btn btn-ghost text-xl font-bold text-brand-blue tracking-tighter hover:bg-brand-cream">
-        ひびきラボ<span class="text-sm font-normal text-gray-500 ml-2 hidden md:inline">プログラミングコース特設ページ</span>
-      </a>
-    </div>
-    <div class="flex-none">
-      <ul class="menu menu-horizontal px-1 font-medium text-gray-600">
-        <li><a href="#empathy" class="hover:text-brand-blue hover:bg-brand-cream">特徴</a></li>
-        <li><a href="#curriculum" class="hover:text-brand-blue hover:bg-brand-cream">カリキュラム</a></li>
-        <li>
-          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdqQSK95lODGBjUxacuHQRABH8hCbJMrEXn24g7zC5JjpAsiA/viewform?usp=header"
-            class="btn bg-brand-orange hover:bg-yellow-400 text-brand-blue border-none ml-2 shadow-md">
-            無料体験申込
-          </a>
-        </li>
-      </ul>
-    </div>
+<div class="navbar bg-white shadow-md sticky top-0 z-50 border-b border-brand-orange/30">
+  <div class="flex-1 flex items-center">
+    <a class="btn btn-ghost text-xl p-0 h-auto min-h-0 hover:bg-transparent">
+      <img src="imgs/header-logo.png" alt="ひびきラボ プログラミングコース" class="h-8 md:h-10">
+    </a>
   </div>
+  
+  <div class="flex-none">
+    <ul class="menu menu-horizontal px-1 font-medium text-gray-600 flex items-center">
+      
+      <li>
+        <a href="#curriculum" class="hover:text-brand-blue hover:bg-brand-cream py-2">
+          カリキュラム
+        </a>
+      </li>
+      
+      <li>
+        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdqQSK95lODGBjUxacuHQRABH8hCbJMrEXn24g7zC5JjpAsiA/viewform?usp=header"
+          class="btn bg-brand-orange hover:bg-yellow-400 text-brand-blue border-none ml-2 shadow-md">
+          無料体験申込
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
 
   <section id="hero" class="relative h-[600px] flex items-center justify-center text-white overflow-hidden bg-gray-900">
 
@@ -102,9 +109,9 @@
       </div>
     </div>
 
-    <div class="absolute inset-0 bg-brand-blue/20 z-10"></div>
+    <div class="absolute inset-0 bg-brand-orange/0 z-10"></div>
 
-    <div class="relative z-20 text-center px-6 max-w-4xl mx-auto mt-10">
+<div class="relative z-20 text-center px-6 max-w-4xl mx-auto mt-10">
       <div
         class="inline-block bg-brand-orange text-brand-blue px-4 py-1 rounded-full font-bold mb-4 shadow-lg tracking-wider">
         小中高生対象・プログラミング教室
@@ -125,8 +132,11 @@
     </div>
     <style>
       .text-shadow-hero {
-        /* 薄い灰色の影を設定 (水平オフセット, 垂直オフセット, ぼかし半径, 色) */
-        text-shadow: 5px 5px 9px #000000;
+        /* 影をさらに濃く、広く変更 */
+        text-shadow: 
+          0px 8px 15px rgba(0, 0, 0, 1),   /* 強い影を一つ目 */
+          0px 0px 10px rgba(0, 0, 0, 0.9), /* テキスト自体に近い部分の影を強化 */
+          0px 15px 25px rgba(0, 0, 0, 0.7); /* さらに広い範囲に少し薄めの影 */
       }
     </style>
 
@@ -193,7 +203,7 @@
           <figure class="relative h-64 overflow-hidden">
             <img src="imgs/class/class_2.png" alt="教室風景"
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-            <div class="absolute top-4 left-4 bg-brand-sky text-white text-xs px-3 py-1 rounded-full">Activity</div>
+            <div class="absolute top-4 left-4 bg-brand-orange text-brand-blue font-bold text-xs px-3 py-1 rounded-full">Activity</div>
           </figure>
           <div class="card-body bg-brand-cream/30">
             <p class="text-gray-600 font-medium text-center">
