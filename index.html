@@ -2,6 +2,16 @@
 <html lang="ja" data-theme="light">
 
 <head>
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-YN25MD55GJ"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag() { dataLayer.push(arguments); }
+    gtag('js', new Date());
+
+    gtag('config', 'G-YN25MD55GJ');
+  </script>
+  
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>小中高生向けのプログラミングコース</title>
@@ -68,31 +78,31 @@
 
 <body class="antialiased">
 
-<div class="navbar bg-white shadow-md sticky top-0 z-50 border-b border-brand-orange/30">
-  <div class="flex-1 flex items-center">
-    <a class="btn btn-ghost text-xl p-0 h-auto min-h-0 hover:bg-transparent">
-      <img src="imgs/header-logo.png" alt="ひびきラボ プログラミングコース" class="h-8 md:h-10">
-    </a>
+  <div class="navbar bg-white shadow-md sticky top-0 z-50 border-b border-brand-orange/30">
+    <div class="flex-1 flex items-center">
+      <a class="btn btn-ghost text-xl p-0 h-auto min-h-0 hover:bg-transparent">
+        <img src="imgs/header-logo.png" alt="ひびきラボ プログラミングコース" class="h-8 md:h-10">
+      </a>
+    </div>
+
+    <div class="flex-none">
+      <ul class="menu menu-horizontal px-1 font-medium text-gray-600 flex items-center">
+
+        <li>
+          <a href="#curriculum" class="hover:text-brand-blue hover:bg-brand-cream py-2">
+            カリキュラム
+          </a>
+        </li>
+
+        <li>
+          <a href="https://docs.google.com/forms/d/e/1FAIpQLSdqQSK95lODGBjUxacuHQRABH8hCbJMrEXn24g7zC5JjpAsiA/viewform?usp=header"
+            class="btn bg-brand-orange hover:bg-yellow-400 text-brand-blue border-none ml-2 shadow-md">
+            無料体験申込
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
-  
-  <div class="flex-none">
-    <ul class="menu menu-horizontal px-1 font-medium text-gray-600 flex items-center">
-      
-      <li>
-        <a href="#curriculum" class="hover:text-brand-blue hover:bg-brand-cream py-2">
-          カリキュラム
-        </a>
-      </li>
-      
-      <li>
-        <a href="https://docs.google.com/forms/d/e/1FAIpQLSdqQSK95lODGBjUxacuHQRABH8hCbJMrEXn24g7zC5JjpAsiA/viewform?usp=header"
-          class="btn bg-brand-orange hover:bg-yellow-400 text-brand-blue border-none ml-2 shadow-md">
-          無料体験申込
-        </a>
-      </li>
-    </ul>
-  </div>
-</div>
 
   <section id="hero" class="relative h-[600px] flex items-center justify-center text-white overflow-hidden bg-gray-900">
 
@@ -111,7 +121,7 @@
 
     <div class="absolute inset-0 bg-brand-orange/0 z-10"></div>
 
-<div class="relative z-20 text-center px-6 max-w-4xl mx-auto mt-10">
+    <div class="relative z-20 text-center px-6 max-w-4xl mx-auto mt-10">
       <div
         class="inline-block bg-brand-orange text-brand-blue px-4 py-1 rounded-full font-bold mb-4 shadow-lg tracking-wider">
         小中高生対象・プログラミング教室
@@ -133,10 +143,13 @@
     <style>
       .text-shadow-hero {
         /* 影をさらに濃く、広く変更 */
-        text-shadow: 
-          0px 8px 15px rgba(0, 0, 0, 1),   /* 強い影を一つ目 */
-          0px 0px 10px rgba(0, 0, 0, 0.9), /* テキスト自体に近い部分の影を強化 */
-          0px 15px 25px rgba(0, 0, 0, 0.7); /* さらに広い範囲に少し薄めの影 */
+        text-shadow:
+          0px 8px 15px rgba(0, 0, 0, 1),
+          /* 強い影を一つ目 */
+          0px 0px 10px rgba(0, 0, 0, 0.9),
+          /* テキスト自体に近い部分の影を強化 */
+          0px 15px 25px rgba(0, 0, 0, 0.7);
+        /* さらに広い範囲に少し薄めの影 */
       }
     </style>
 
@@ -203,7 +216,8 @@
           <figure class="relative h-64 overflow-hidden">
             <img src="imgs/class/class_2.png" alt="教室風景"
               class="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110">
-            <div class="absolute top-4 left-4 bg-brand-orange text-brand-blue font-bold text-xs px-3 py-1 rounded-full">Activity</div>
+            <div class="absolute top-4 left-4 bg-brand-orange text-brand-blue font-bold text-xs px-3 py-1 rounded-full">
+              Activity</div>
           </figure>
           <div class="card-body bg-brand-cream/30">
             <p class="text-gray-600 font-medium text-center">
